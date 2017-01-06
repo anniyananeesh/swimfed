@@ -1805,15 +1805,16 @@ p.creating {
 
 
 .green_button {
-    border: none;
-    outline: none;
-    cursor: pointer;
-    color: #fff;
-    background: #13ac31;
-    width: 20%;
-    padding: .5em .5em;
-    font-size: 1em;
-    margin: 0.5em 0 0 0em;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  color: #fff;
+  background: #13ac31;
+  width: auto;
+  padding: .5em 1em;
+  font-size: 1em;
+  margin: 0.5em 0 0 0em;
+  display: inline-block;
 }
 .green_button:hover, .green_button:focus, .green_button:active {
     background-color: #0f9128;
@@ -1890,7 +1891,7 @@ p.creating {
     cursor: pointer;
     color: #fff;
     background: #6164c0;
-    padding: .5em .5em;
+    padding: .5em 1em;
     font-size: 1em;
     margin: 0.5em 0 0 0em;
 }
@@ -1904,8 +1905,8 @@ p.creating {
     cursor: pointer;
     color: #fff;
     background: #6164c0;
-    width: 20%;
-    padding: .5em .5em;
+    width: auto;
+    padding: .5em 1em;
     font-size: 1em;
     margin: 0.5em 0 0 0em;
 }
@@ -1919,10 +1920,11 @@ p.creating {
     cursor: pointer;
     color: #fff;
     background: #fe0000;
-    width: 20%;
-    padding: .5em .5em;
+    width: auto;;
+    padding: .5em 1em;
     font-size: 1em;
     margin: 0.5em 0 0 0em;
+    display: inline-block;
 }
 .red_button:hover, .green_button:focus, .red_button:active {
     background-color: #da0101;
@@ -1934,7 +1936,7 @@ p.creating {
     cursor: pointer;
     color: #fff;
     background: #fe0000;
-    padding: .5em .5em;
+    padding: .5em 1em;
     font-size: 1em;
     margin: 0.5em 0 0 0em;
 }
@@ -1950,7 +1952,7 @@ p.creating {
     color: #fff;
 	border-radius:0px;
     background: #fe0000;
-    padding: .5em .5em;
+    padding: .5em 1em;
     font-size: 1em;
     margin: 0;
 }
@@ -4209,4 +4211,15 @@ h4.title3 {
   color: red;
   font-size: 13px;
   padding-top: 10px;
+}
+
+.inbox-row2 {
+  margin-bottom: 15px;
+  min-height: 300px;
+}
+.inbox-row2 .no-emails {
+   text-align: center;
+   padding-top: 80px;
+   font-size: 30px;
+   color: #ddd;
 }

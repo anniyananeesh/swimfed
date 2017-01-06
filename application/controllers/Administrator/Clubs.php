@@ -7,13 +7,14 @@ class Clubs extends MY_Controller {
     protected $className;
 
     protected $imageShowPath = CLUBS_SHOW_PATH;
-    protected $memberShowPath = MEMBERS_SHOW_PATH;
+    protected $memberShowPath = MEMBER_SHOW_PATH;
     protected $passportShowPath = PASSPORT_SHOW_PATH;
+    protected $cardShowPath = CARD_SHOW_PATH;
 
     public function __construct() {
 
         parent::__construct();
-        $this->viewFolder = ADMIN_VIEWS . '/Clubs';
+        $this->viewFolder = ADMIN_VIEWS . '/clubs';
         $this->data['menuActive'] = 'clubs';
         $this->data['ctrlUrl'] = HOST_URL . "/" . ADMIN_URL . "/Clubs";
         $this->load->model( ADMIN_VIEWS . '/model_clubs', 'modelNameAlias');
@@ -169,16 +170,76 @@ class Clubs extends MY_Controller {
 
         $this->data['memberShowPath'] = $this->memberShowPath;
         $this->data['passportShowPath'] = $this->passportShowPath;
+        $this->data['cardShowPath'] = $this->cardShowPath;
 
         $join = array(
            array('table' => TBL_CLUBS, 'condition' => TBL_CLUBS . '.id = ' . TBL_MEMBERS . '.club_fk', 'join' => 'LEFT')
         );
 
-        $fields = array(TBL_MEMBERS . '.*', TBL_CLUBS . '.name');
+        $fields = array(TBL_MEMBERS . '.*', TBL_CLUBS . '.name', TBL_CLUBS . '.email as club_email');
 
         $this->data['record'] = $this->modelMembersAlias->fetchRowFields( $fields, array(TBL_MEMBERS . '.id' => $this->mencrypt->decode($memberID)), array(), $join);
         $this->load->view($this->layout, $this->data);
 
+    }
+
+    public function settings($id) {
+
+        $this->data['content'] = $this->viewFolder . '/settings';
+        $this->data['sidemenu_club_active'] = 'sidemenu-admin-clubs';
+        $this->data['club_id'] = $id;
+
+        $fields = array(
+           'name',
+           'club_code',
+           'id',
+           'username',
+           'r_password'
+        );
+
+        $this->data['record'] = $this->modelNameAlias->fetchRowFields($fields, array('id' => $this->mencrypt->decode($id)));
+
+        if($this->input->post()) {
+
+              $this->load->library('form_validation');
+
+              $this->form_validation->set_rules('password', 'Password', 'trim|min_length[8]|max_length[12]|matches[cpassword]|required');
+              $this->form_validation->set_rules('cpassword', 'Confirm password', 'trim|xss_clean');
+
+              $this->form_validation->set_error_delimiters('', '');
+
+              if($this->form_validation->run() == TRUE) {
+
+                $hashKey = $this->modelNameAlias->genPwdHashKey($this->input->post("password", TRUE), $this->data['record']->unique_token);
+
+                $data_array = array(
+                    'hash_key' => $hashKey,
+                    'r_password' => $this->input->post("password", TRUE),
+                    'updated_on' => date('Y-m-d h:i:s A')
+                );
+
+                $where = array(
+                    'id' => $this->mencrypt->decode($id)
+                );
+
+                $this->modelNameAlias->save($data_array, $where);
+
+                $this->addLog($this->className . " settings changed the password");
+
+                $this->session->set_flashdata('success_message', $this->className . ' added');
+                redirect($this->data['ctrlUrl'] . '/settings/' . $id);
+
+            } else {
+
+                $this->data['Error'] = 'Y';
+                $this->data['MSG'] = 'Your form has errors';
+                $error = true;
+
+            }
+
+        }
+
+        $this->load->view($this->layout, $this->data);
     }
 
     public function member_status( $clubID, $memberID, $status) {

@@ -4,6 +4,7 @@
 
     $CI->load->model(ADMIN_VIEWS . '/model_clubs', 'modelClubAlias');
     $CI->load->model(ADMIN_VIEWS . '/model_members', 'modelMembersAlias');
+    $CI->load->model(ADMIN_VIEWS . '/model_messages', 'modelMessagesAlias');
 ?>
 
 <div class=" sidebar" role="navigation">
@@ -31,7 +32,7 @@
 </li>
 
             <li>
-  <a href="create_id.html"><i class="fa fa-certificate nav_icon"></i>Create ID</a>
+  <a href="<?php echo HOST_URL .'/'. ADMIN_URL . '/' . 'Card/create'?>"><i class="fa fa-certificate nav_icon"></i>Create ID</a>
 </li>
 
             <li>
@@ -49,16 +50,23 @@
   <a href="#"><i class="fa fa-envelope nav_icon"></i>Messages<span class="fa arrow"></span></a>
   <ul class="nav nav-second-level collapse">
     <li>
-      <a href="inbox.html">Inbox <span class="nav-badge-btm">05</span></a>
+      <a href="<?php echo HOST_URL .'/'. ADMIN_URL . '/' . 'Inbox'?>">Inbox
+
+        <?php $unreadMessages = $CI->modelMessagesAlias->countAllRecordsByCond(array('label' => 'Inbox', 'is_read' => 'N', 'to_fk' => 0));?>
+
+        <?php if($unreadMessages > 0):?>
+          <span class="nav-badge-btm" id="admin-mail-unread-count"><?php echo $unreadMessages;?></span>
+        <?php endif;?>
+      </a>
     </li>
     <li>
-      <a href="compose.html">Compose Message</a>
+      <a href="<?php echo HOST_URL .'/'. ADMIN_URL . '/' . 'Compose'?>">Compose Message</a>
     </li>
                     <li>
-      <a href="send.html">Send Messages</a>
+      <a href="<?php echo HOST_URL .'/'. ADMIN_URL . '/' . 'Send'?>">Send Messages</a>
     </li>
                     <li>
-      <a href="trash.html">Trashed Messages</a>
+      <a href="<?php echo HOST_URL .'/'. ADMIN_URL . '/' . 'Trash'?>">Trashed Messages</a>
     </li>
   </ul>
   <!-- //nav-second-level -->

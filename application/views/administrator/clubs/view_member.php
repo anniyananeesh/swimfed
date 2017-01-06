@@ -5,24 +5,21 @@
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             <h4 class="modal-title" id="exampleModalLabel">New message</h4>
           </div>
+          <form class="com-mail" action="<?php echo HOST_URL . '/' . ADMIN_URL?>/Message" method="post" enctype="application/x-www-form-urlencoded">
           <div class="modal-body">
-            <form class="com-mail">
-                                    <input type="text" class="form-control1 control3" placeholder="Subject :">
-                                    <textarea rows="6" class="form-control1 control2" placeholder="Message :" ></textarea>
-                                    <div class="form-group">
-                                        <div class="btn green_button2 btn-file">
-                                            <i class="fa fa-paperclip"></i> Attachment
 
-                                        </div>
-                                        <p class="help-block">Max. 32MB</p>
-                                    </div>
+               <input type="hidden" name="emailID" id="emailID" value="<?php echo $record->club_email?>"/>
+               <input type="hidden" name="redirect_uri" id="redirect_uri" value="<?php echo $ctrlUrl?>/view_member/<?php echo $menuID?>/<?php echo $this->mencrypt->encode($record->id)?>"/>
+               <input type="text" class="form-control1 control3" placeholder="Subject :" name="subject" id="subject" />
+               <textarea rows="6" class="form-control1 control2" placeholder="Message :" name="message" id="message"></textarea>
 
-                                </form>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Send message</button>
+            <button type="submit" class="btn btn-primary">Send message</button>
           </div>
+
+          </form>
         </div>
       </div>
     </div>
@@ -175,15 +172,24 @@
 
                         <div class="form-group mb-n">
                             <div class="member_img">
-                              <img src="images/passport.jpg" alt="">
-                                <img src="images/visa.jpg" alt="">
+                              <?php if($record->passport_image1 != NULL):?>
+                                  <img src="<?php echo $passportShowPath?>/<?php echo $record->passport_image1?>" alt="">
+                              <?php else:?>
+                                  <img src="<?php echo ADMIN_IMG_PATH?>/passport.jpg" alt="">
+                              <?php endif;?>
+
+                              <?php if($record->passport_image2 != NULL):?>
+                                  <img src="<?php echo $passportShowPath?>/<?php echo $record->passport_image2?>" alt="">
+                              <?php else:?>
+                                  <img src="<?php echo ADMIN_IMG_PATH?>/visa.jpg" alt="">
+                              <?php endif;?>
                             </div>
         </div>
 
                         <div class="form-group mb-n">
                             <div class="member_img">
                               <?php if($record->id_card1 != NULL):?>
-                                <img src="<?php echo $imageShowPath?>/<?php echo $record->id_card1?>" alt="">
+                                <img src="<?php echo $cardShowPath?>/<?php echo $record->id_card1?>" alt="">
                               <?php else:?>
                                 <img src="<?php echo ADMIN_IMG_PATH?>/id_icon.jpg" alt="">
                               <?php endif;?>

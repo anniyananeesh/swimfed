@@ -83,12 +83,11 @@ class MY_Controller extends CI_Controller {
     }
 
     protected function getFileConfig($fileName){
-        $config['upload_path']      = $this->image_up_path;
-        $config['allowed_types']    = 'pdf|doc|docx';
-        $config['max_size']         = '5000';
+        $config['upload_path']      = $this->fileUpPath;
+        $config['allowed_types']    = 'pdf|doc|docx|jpg|png';
+        $config['max_size']         = '15000';
         $config['max_width']        = '5000';
         $config['max_height']       = '5000';
-        $config['max_size']         = 0;
         $config['file_name']        = $fileName;
         return $config;
     }
@@ -188,6 +187,154 @@ class MY_Controller extends CI_Controller {
        }
 
    }
+
+   public function addLog($message) {
+
+      $data_array = array(
+          'username'  => $this->data['user']['full_name'],
+          'controller'   => $this->router->fetch_class(),
+          'action'   => $this->router->fetch_method(),
+          'message' => $message,
+          'created_on'   => date('Y-m-d h:i:s A')
+      );
+
+      return $this->modelLogsAlias->save($data_array);
+
+   }
+
+}
+
+class Club_Controller extends CI_Controller {
+
+    public $layout;
+    public $join;
+    public $data;
+
+    public function __construct() {
+
+        parent::__construct();
+
+        $this->layout = CLUB_LAYOUT;
+        $this->data['user'] = $this->session->userdata('data_logged');
+
+        if (empty($this->data['user'])) {
+
+            $this->session->set_userdata('refered_from', current_url());
+            redirect(CLUB_LOGIN);
+        }
+
+        $this->join = array();
+        $this->load->library('upload');
+
+        $this->load->model(CLUB_VIEWS . "/model_logs", 'modelLogsAlias');
+        $this->load->model(CLUB_VIEWS . "/model_users", 'modelUsersClubAlias');
+
+        $fields = array(
+            'address',
+            'pincode',
+            'image1'
+        );
+        $this->data['clubProfileImagePath'] = CLUBS_SHOW_PATH;
+        $this->data['userProfileInfo'] = $record = $this->modelUsersClubAlias->fetchRowFields($fields, array('id' => $this->mencrypt->decode($this->data['user']['user_id'])));
+
+        if($record->address == '' && $record->pincode == '' && $this->router->fetch_class() != 'Setup') {
+            redirect(CLUB_URL .'/Setup');
+        } else if ($record->address != '' && $record->pincode != '' && $this->router->fetch_class() == 'Setup') {
+            $this->session->set_flashdata('success_message', 'You have already entered your information');
+            redirect(CLUB_URL .'/Dashboard');
+        }
+    }
+
+    protected function getImageConfig($imgName,$fileAttrs)
+    {
+
+        $config['upload_path']      = $fileAttrs['imgPath'];
+        $config['allowed_types']    = 'gif|jpg|jpeg|png|GIF|JPG|JPEG|PNG|svg|SVG';
+        $config['max_size']         = $fileAttrs['maxSize'];
+        $config['max_width']        = $fileAttrs['maxWidth'];
+        $config['max_height']       = $fileAttrs['maxHeight'];
+        $config['file_name']        = $imgName;
+        return $config;
+    }
+
+    public function upload_image($field_name, $image1_name, $img_name_delete = NULL, $fileAttrs)
+    {
+        $return_array = array();
+        $Image1Name = substr(md5(uniqid(rand())),0,15);
+        $Image1Name = "IMG-".$Image1Name.strrchr($image1_name,".");
+
+        $config = $this->getImageConfig($Image1Name,$fileAttrs);
+        $this->upload->initialize($config);
+
+        if (!$this->upload->do_upload($field_name)){
+            $return_array["msg"] = strip_tags($this->upload->display_errors());
+            $return_array["err"] = "Y";
+            $return_array["ups"] = "Error";
+        }
+
+        if (!empty($img_name_delete)){
+            if (file_exists($fileAttrs['thumbUpPath'].$img_name_delete)) { unlink($fileAttrs['thumbUpPath'].$img_name_delete); }
+            if (file_exists($fileAttrs['imgPath'].$img_name_delete)) { unlink($fileAttrs['imgPath'].$img_name_delete); }
+        }
+
+        if(!empty($image1_name) && $return_array["err"] != 'Y' && $fileAttrs['createThumb'])
+        {
+            $this->createThumnail($Image1Name, $fileAttrs);
+        }
+
+        $return_array["ImageName"] = $Image1Name;
+        return $return_array;
+    }
+
+    protected function createThumnail($imgName, $fileAttrs)
+    {
+
+        include_once(APPPATH."libraries/thumbnail_images.class.php");
+
+        $obj_img = new thumbnail_images();
+        $obj_img->NewWidth   = $fileAttrs['thumbWidth'];
+        $obj_img->NewHeight  = $fileAttrs['thumbHeight'];
+        $obj_img->Cropping   = $fileAttrs['thumbCrop'];
+        $obj_img->PathImgOld = $fileAttrs['imgPath']."/".$imgName;
+        $obj_img->PathImgNew = $fileAttrs['thumbUpPath']."/".$imgName;
+        $obj_img->create_thumbnail_images();
+    }
+
+    protected function getFileConfig($fileName){
+        $config['upload_path']      = $this->fileUpPath;
+        $config['allowed_types']    = 'pdf|doc|docx|jpg|png';
+        $config['max_size']         = '15000';
+        $config['max_width']        = '5000';
+        $config['max_height']       = '5000';
+        $config['file_name']        = $fileName;
+        return $config;
+    }
+
+    function upload_file($field_name, $file1_name, $file_name_delete){
+
+            $return_array = array();
+            $File1Name = substr(md5(uniqid(rand())),0,15);
+            $File1Name = "FILE".$File1Name.strrchr($file1_name,".");
+            /* --------------------------
+            |   File Uploading
+            |  -------------------------*/
+            $config = $this->getFileConfig($File1Name);
+            $this->upload->initialize($config);
+            if (!$this->upload->do_upload($field_name)){
+                $return_array["msg"] = strip_tags($this->upload->display_errors());
+                $return_array["err"] = "Y";
+                $return_array["ups"] = "Error";
+            }
+            /* --------------------------
+            |   Delete Old File
+            |  -------------------------*/
+            if (!empty($file_name_delete)){
+                if (file_exists($this->image_up_path.$file_name_delete)) { unlink($this->image_up_path.$file_name_delete); }
+            }
+
+            $return_array["FileName"] = $File1Name;
+            return $return_array;
+    }
 
    public function addLog($message) {
 

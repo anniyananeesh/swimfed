@@ -14,7 +14,16 @@
                 <a href="<?php echo HOST_URL . '/' . ADMIN_URL?>/Card/create"><button class="green_button5">CREATE ID</button></a>
                 </div>
                 <div class="col-sm-6 text-center">
-                <a href="<?php echo HOST_URL . '/' . ADMIN_URL?>/Inbox"><button class="green_button5">MESSAGES <span class="badge">3</span></button></a>
+                <a href="<?php echo HOST_URL . '/' . ADMIN_URL?>/Inbox">
+                  <button class="green_button5">MESSAGES
+ 
+                    <?php if($unreadMessages > 0):?>
+                      <span class="badge"><?php echo $unreadMessages;?></span>
+                    <?php endif;?>
+
+                  </button>
+                </a>
+
                 </div>
 
             </div>

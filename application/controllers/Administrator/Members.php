@@ -13,7 +13,7 @@ class Members extends MY_Controller {
     public function __construct() {
 
         parent::__construct();
-        $this->viewFolder = ADMIN_VIEWS . '/Members';
+        $this->viewFolder = ADMIN_VIEWS . '/members';
         $this->data['menuActive'] = 'members';
         $this->data['ctrlUrl'] = HOST_URL . "/" . ADMIN_URL . "/Members";
         $this->load->model( ADMIN_VIEWS . '/model_members', 'modelNameAlias');
@@ -46,7 +46,7 @@ class Members extends MY_Controller {
 
         $this->data['records'] = $this->modelNameAlias->fetchFields($fields, $where, array(), null, null, $join);
         $this->load->view($this->layout, $this->data);
-        
+
     }
 
   }
