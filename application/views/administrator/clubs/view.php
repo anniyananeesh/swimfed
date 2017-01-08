@@ -9,7 +9,7 @@
             <form class="com-mail" action="<?php echo HOST_URL . '/' . ADMIN_URL?>/Message" method="post" enctype="application/x-www-form-urlencoded">
             <div class="modal-body">
 
-                 <input type="hidden" name="emailID" id="emailID" value="<?php echo $record->email?>"/>
+                 <input type="hidden" name="emailID" id="emailID" value="<?php echo $this->mencrypt->encode($record->id)?>"/>
                  <input type="hidden" name="redirect_uri" id="redirect_uri" value="<?php echo $ctrlUrl?>/view/<?php echo $menuID?>"/>
                  <input type="text" class="form-control1 control3" placeholder="Subject :" name="subject" id="subject" />
                  <textarea rows="6" class="form-control1 control2" placeholder="Message :" name="message" id="message"></textarea>

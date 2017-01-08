@@ -8,7 +8,7 @@
           <form class="com-mail" action="<?php echo HOST_URL . '/' . ADMIN_URL?>/Message" method="post" enctype="application/x-www-form-urlencoded">
           <div class="modal-body">
 
-               <input type="hidden" name="emailID" id="emailID" value="<?php echo $record->club_email?>"/>
+               <input type="hidden" name="emailID" id="emailID" value="<?php echo $menuID?>"/>
                <input type="hidden" name="redirect_uri" id="redirect_uri" value="<?php echo $ctrlUrl?>/view_member/<?php echo $menuID?>/<?php echo $this->mencrypt->encode($record->id)?>"/>
                <input type="text" class="form-control1 control3" placeholder="Subject :" name="subject" id="subject" />
                <textarea rows="6" class="form-control1 control2" placeholder="Message :" name="message" id="message"></textarea>
@@ -151,7 +151,7 @@
                         <div class="form-group mb-n">
           <label for="largeinput" class="col-sm-4 control-label label-input-lg">Current Status :</label>
           <div class="col-sm-8 infotext">
-            <?php echo $record->current_status?>
+            <?php echo ($value->is_active == 'Y') ? 'Active' : 'Pending'?>
           </div>
         </div>
 
@@ -206,7 +206,7 @@
             <?php if($record->is_active == 'N'):?>
               <button onclick="window.location.href='<?php echo $ctrlUrl?>/member_status/<?php echo $this->mencrypt->encode($record->club_fk)?>/<?php echo $this->mencrypt->encode($record->id)?>/Y'" class="green_button" type="button" name="Sign In">Approve Request</button>
             <?php else:?>
-              <button onclick="window.location.href='<?php echo $ctrlUrl?>/member_status/<?php echo $this->mencrypt->encode($record->club_fk)?>/<?php echo $this->mencrypt->encode($record->id)?>/N'" class="red_button" type="button" name="Sign In">Cancel Request</button>
+              <button onclick="window.location.href='<?php echo $ctrlUrl?>/member_status/<?php echo $this->mencrypt->encode($record->club_fk)?>/<?php echo $this->mencrypt->encode($record->id)?>/N'" class="red_button" type="button" name="Sign In">Reject Member</button>
             <?php endif;?>
 
             <button  type="button" class="blue_button" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Send Report</button>

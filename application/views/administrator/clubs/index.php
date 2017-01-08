@@ -82,7 +82,7 @@
                                 <td><?php echo $value->name?></td>
                                 <td><?php echo $value->emirate?></td>
                                 <td>
-                                  <a  class="cursor send-email" data-email="<?php echo $value->email?>" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo"><?php echo $value->email?></a>
+                                  <a  class="cursor send-email" data-email="<?php echo $this->mencrypt->encode($value->id)?>" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo"><?php echo $value->email?></a>
                                 </td>
                                 <td><?php echo date('d-m-Y <br> h.i a', strtotime($value->updated_on))?></td>
                                 <td><?php echo date('d-m-Y <br> h.i a', strtotime($value->created_on))?></td>

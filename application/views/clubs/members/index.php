@@ -46,7 +46,7 @@
 
         <?php $this->load->view('shared/alerts');?>
         <?php $this->load->view('shared/flash-message');?>
-        
+
         <table class="table table-hover">
                       <thead>
                           <tr>
@@ -75,7 +75,7 @@
                                     <td><?php echo $value->name?></td>
                                     <td><?php echo date('d-m-Y <br> h.i a', strtotime($value->updated_on))?></td>
                                     <td><?php echo date('d-m-Y <br> h.i a', strtotime($value->created_on))?></td>
-                                    <td><?php echo $value->current_status?></td>
+                                    <td><?php echo ($value->is_active == 'Y') ? 'Active' : 'Pending'?></td>
                                     <td><a href="<?php echo HOST_URL . '/' . CLUB_URL . '/Members'?>/edit/<?php echo $this->mencrypt->encode($value->id)?>" class="blue_button3">Edit</a></td>
                                 </tr>
                             <?php endforeach;?>

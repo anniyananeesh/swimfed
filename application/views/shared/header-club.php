@@ -6,7 +6,7 @@
     <!--toggle button end-->
     <!--logo -->
     <div class="logo">
-      <a href="<?php echo HOST_URL .'/'. CLUB_URL . '/' . 'Dashboard'?>">
+      <a href="<?php echo HOST_URL .'/'. CLUB_URL . '/' . 'Info'?>">
         <h1>AQUATICS</h1>
         <span>GREEN GATE</span>
       </a>
@@ -29,7 +29,7 @@
             );
 
             $messages = $CI->modelMessagesAlias->fetchFields($fields, array( TBL_MESSAGES . '.label' => 'Inbox', TBL_MESSAGES . '.to_fk' => $CI->mencrypt->decode($user['user_id']), TBL_MESSAGES.'.is_read' => 'N'), array( TBL_MESSAGES.'.created_on' => 'DESC'));
- 
+
         ?>
 
         <?php if($messages):?>
@@ -92,7 +92,7 @@
             </div>
           </a>
           <ul class="dropdown-menu drp-mnu">
-            <li> <a href="<?php echo HOST_URL .'/'. CLUB_URL . '/' . 'Dashboard'?>"><i class="fa fa-user"></i> Profile</a> </li>
+            <li> <a href="<?php echo HOST_URL .'/'. CLUB_URL . '/' . 'Info'?>"><i class="fa fa-user"></i> Profile</a> </li>
             <li> <a href="<?php echo HOST_URL .'/'. CLUB_URL . '/' . 'Logout'?>"><i class="fa fa-sign-out"></i> Logout</a> </li>
           </ul>
         </li>

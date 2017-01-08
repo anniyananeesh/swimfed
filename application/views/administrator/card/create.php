@@ -3,7 +3,7 @@
     <div class="main-page">
         <div class="forms">
             <div class="row">
-                <h3 class="title1"> Athletic Club  <span>Update informations</span></h3>
+                <h3 class="title1"> Aquatics Greengate  <span>Create ID Card</span></h3>
                 <div class="form-three widget-shadow">
                     <form class="form-horizontal" action="" method="post" enctype="multipart/form-data" name="create-id-frm">
 
@@ -76,6 +76,17 @@
                                     <?php endif;?>
                                 </div>
                             </div>
+
+                            <div class="form-group">
+                                <label for="focusedinput" class="col-sm-4 control-label">Age</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control1" name="age" id="age" value="<?php echo (isset($post) && $post['age'] != "") ? $post['age'] : '';?>">
+                                    <?php if(form_error('age')):?>
+                                        <div class="error" ><?php echo form_error('age');?></div>
+                                    <?php endif;?>
+                                </div>
+                            </div>
+
                             <div class="form-group">
                                 <label for="focusedinput" class="col-sm-4 control-label">Member Type</label>
                                 <div class="col-sm-8">
@@ -104,7 +115,7 @@
                             <p class="text-center">AFTER GENERATE PREVIEW ID CARD</p>
                             <div class="idcard">
                                 <?php if($card_image == NULL):?>
-                                    <img src="<?php echo ADMIN_IMG_PATH?>/id.jpg" />
+                                    <img src="<?php echo ADMIN_IMG_PATH?>/id.png" />
                                 <?php else:?>
                                     <img src="<?php echo $imageShowPath?>/<?php echo $card_image?>" />
                                 <?php endif;?>

@@ -93,6 +93,25 @@ class Clubs extends MY_Controller {
 
                 $this->modelNameAlias->save($data_array);
 
+                //Send an email to the registered club email
+                $full_name = $this->input->post("name", TRUE);
+                $club_code = $this->input->post("club_code", TRUE);
+                $email = $this->input->post("email", TRUE);
+                $username = $this->input->post("username", TRUE);
+                $password = $this->input->post("password", TRUE);
+
+                $this->load->library('email');
+                $this->config->load('email', true);
+                $this->email->from('no-reply@avenirevents.com', $name);
+                $this->email->to($email);
+                $this->email->subject(SITE_NAME . ' - Your account has been created with us.');
+
+                include_once(MISC_PATH . "/emails.php");
+                $message = $activation_email;
+
+                $this->email->message($message);
+                $this->email->send(); //Email send to the club email
+
                 $this->addLog($this->className . " added with new title :- ". $this->input->post("name", TRUE));
 
                 $this->session->set_flashdata('success_message', $this->className . ' added');

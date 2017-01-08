@@ -10,7 +10,7 @@ class Message extends MY_Controller {
         parent::__construct();
         $this->data['menuActive'] = 'message';
         $this->className = 'Message';
-
+        $this->load->model( ADMIN_VIEWS . "/model_messages", "modelMessageAlias");
     }
 
     public function index() {
@@ -26,20 +26,16 @@ class Message extends MY_Controller {
 
             if ($this->form_validation->run() == TRUE) {
 
-                include_once(APPPATH . "/libraries/Mail.php");
-                $mail = new Mail();
-
-                $message_body = $this->input->post("message", TRUE);
-
-                include_once(MISC_PATH."/emails.php");
-
-                $options = array(
-                    'from' => INFO_EMAIL,
-                    'to' => $this->input->post("emailID", TRUE),
-                    'subject' => $this->input->post("subject", TRUE)
+                $data_array = array(
+                    'from_fk' => 0,
+                    'to_fk' => $this->mencrypt->decode($this->input->post("emailID", TRUE)),
+                    'message' => $this->input->post("message", TRUE),
+                    'label' => 'Inbox',
+                    'attachment_url' => NULL,
+                    'created_on' => date('Y-m-d h:i:s a')
                 );
 
-                $mail->send_email( $options, $common_message_format);
+                $this->modelMessageAlias->save($data_array);
 
                 $this->session->set_flashdata('success_message', 'Your email has been send');
                 redirect($this->input->post('redirect_uri', TRUE));

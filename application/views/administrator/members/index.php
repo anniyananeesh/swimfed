@@ -71,7 +71,7 @@
                                     <td><?php echo $value->name?></td>
                                     <td><?php echo date('d-m-Y <br> h.i a', strtotime($value->updated_on))?></td>
                                     <td><?php echo date('d-m-Y <br> h.i a', strtotime($value->created_on))?></td>
-                                    <td><?php echo $value->current_status?></td>
+                                    <td><?php echo ($value->is_active == 'Y') ? 'Active' : 'Pending'?></td>
                                     <td><a href="<?php echo HOST_URL . '/' . ADMIN_URL . '/Clubs'?>/view_member/<?php echo $this->mencrypt->encode($value->club_fk)?>/<?php echo $this->mencrypt->encode($value->id)?>" class="blue_button3">View</a></td>
                                 </tr>
                             <?php endforeach;?>

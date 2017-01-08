@@ -76,6 +76,7 @@ class Model_users extends MY_Model
 
             $result = $query->result();
             $result = $result[0];
+            /**
 
             $newPass    = $this->genRndmPwdString();
             $newHashKey = $this->genPwdHashKey($newPass, $result->uniq_token);
@@ -90,9 +91,9 @@ class Model_users extends MY_Model
             );
 
             parent::save($save, $where);
-            return array('code' => 200, 'message' => 'Success', 'data' => array());
+            */
 
-            //TODO : - Send an email to the user with new reset password
+            return array('code' => 200, 'message' => 'Success', 'data' => array('id' => $result->id, 'code' => $result->club_code, 'name' => $result->name));
 
         } else {
             return array('code' => 400, 'message' => 'No User found', 'data' => array());

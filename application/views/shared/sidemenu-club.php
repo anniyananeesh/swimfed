@@ -55,9 +55,9 @@
         <li>
           <a href="<?php echo HOST_URL .'/'. CLUB_URL . '/' . 'Compose'?>">Compose Message</a>
         </li>
-       <li>
-          <a href="<?php echo HOST_URL .'/'. CLUB_URL . '/' . 'Send'?>">Send Messages</a>
-        </li>
+       <!-- <li>
+          <a href="<?php //echo HOST_URL .'/'. CLUB_URL . '/' . 'Send'?>">Send Messages</a>
+        </li>-->
                         <li>
           <a href="<?php echo HOST_URL .'/'. CLUB_URL . '/' . 'Trash'?>">Trashed Messages</a>
         </li>

@@ -33,6 +33,7 @@ class Card extends MY_Controller {
         $post['dob'] = '';
         $post['club_name'] = '';
         $post['type'] = '';
+        $post['age'] = '';
 
         $this->data['post'] = $post;
         $this->data['card_image'] = NULL;
@@ -56,6 +57,7 @@ class Card extends MY_Controller {
             $this->form_validation->set_rules('dob', 'Date of birth', 'trim|required|xss_clean');
             $this->form_validation->set_rules('club_name', 'Club name', 'trim|required|xss_clean');
             $this->form_validation->set_rules('type', 'Member type', 'trim|required|xss_clean');
+            $this->form_validation->set_rules('age', 'Age', 'trim|required|xss_clean');
 
             $image_name        = $_FILES["userfile"]["name"];
             $image_tmp_name    = $_FILES["userfile"]["tmp_name"];
@@ -93,8 +95,8 @@ class Card extends MY_Controller {
                       include_once(APPPATH . "/libraries/Image.php");
 
                       $image = new Image(false, CARD_UP_PATH);
-                      $this->data['card_image'] = $image->drawIDCard( $this->input->post(), $ImageName);
- 
+                      $this->data['card_image'] = $image->drawIDCard( $this->input->post(), CARD_UP_PATH . '/' . $ImageName, true);
+
                       $this->data['Error'] = 'N';
                       $this->data['MSG'] = 'Successfully generated the id card';
                   }
@@ -104,6 +106,111 @@ class Card extends MY_Controller {
         }
 
         $this->load->view($this->layout, $this->data);
+
+    }
+
+    public function autogenerate() {
+
+        $this->data['content'] = $this->viewFolder . '/autogenerate';
+
+        $post['member_code'] = '';
+        $this->data['post'] = $post;
+
+        $this->data['card_image'] = NULL;
+        $this->data['imageShowPath'] = $this->imageShowPath;
+
+        if($this->input->post()) {
+
+              $this->data['post'] = $this->input->post();
+
+              $this->load->library('form_validation');
+              $this->form_validation->set_rules('member_code', 'Member code', 'trim|required|xss_clean');
+              $this->form_validation->set_error_delimiters('', '');
+
+              if($this->form_validation->run() == TRUE && !$error) {
+
+                  $this->load->model( ADMIN_VIEWS . '/model_members', 'modelMembersAlias');
+
+                  $join = array(
+                      array('table' => TBL_CLUBS, 'condition' => TBL_CLUBS . '.id = ' . TBL_MEMBERS . '.club_fk', 'join' => 'LEFT')
+                  );
+
+                  $fields = array(
+                      TBL_CLUBS . '.name as club_name',
+                      TBL_MEMBERS . '.first_name',
+                      TBL_MEMBERS . '.last_name',
+                      TBL_MEMBERS . '.father_name',
+                      TBL_MEMBERS . '.dob',
+                      TBL_MEMBERS . '.type',
+                      TBL_MEMBERS . '.code',
+                      TBL_MEMBERS . '.is_active',
+                      TBL_MEMBERS . '.club_fk',
+                      TBL_MEMBERS . '.image1',
+                      TBL_MEMBERS . '.id'
+                  );
+
+                  $member  =  $this->modelMembersAlias->fetchRowFields($fields, array('code' => $this->input->post("member_code", TRUE)), array(), $join);
+
+                  if($member->is_active == 'Y') {
+
+                      $data_array = array(
+                          'first_name' => $member->first_name,
+                          'last_name' => $member->last_name,
+                          'father_name' => $member->father_name,
+                          'dob' => $member->dob,
+                          'type' => $member->type,
+                          'age' => $this->ageCalculator(date('Y-m-d', strtotime($member->dob))), // Dob shoul be in format mm/dd/YYYY
+                          'club_name' => $member->club_name,
+                          'code' => $member->code,
+                      );
+
+                      include_once(APPPATH . "/libraries/Image.php");
+
+                      $image = new Image(false, MEMBER_UP_PATH);
+                      $this->data['card_image'] = $image->drawIDCard( $data_array, MEMBER_UP_PATH . '/' . $member->image1, false);
+
+                      $data_member_array = array(
+                          'id_card1' => $this->data['card_image']
+                      );
+
+                      $where = array(
+                          'id' => $member->id
+                      );
+
+                      $this->modelMembersAlias->save( $data_member_array, $where);
+
+                      //Move the image to cards folder
+                      rename(MEMBER_UP_PATH . '/' . $this->data['card_image'], CARD_UP_PATH . '/' . $this->data['card_image']);
+
+                      $this->data['Error'] = 'N';
+                      $this->data['MSG'] = 'Successfully generated the id card';
+
+                  } else {
+
+                      $approvalUrl = HOST_URL . '/' . ADMIN_URL . '/Clubs/view_member/' . $this->mencrypt->encode($member->club_fk) . '/' . $this->mencrypt->encode($member->id);
+                      $this->data['Error'] = 'Y';
+                      $this->data['MSG'] = 'This member is not approved, please approve to generate ID card <a href="' . $approvalUrl . '"> Click here to approve</a>';
+                  }
+
+
+              }
+
+        }
+
+        $this->load->view($this->layout, $this->data);
+
+    }
+
+    private function ageCalculator($dob){
+
+        if(!empty($dob)){
+            $birthdate = new DateTime($dob);
+            $today   = new DateTime('today');
+            $age = $birthdate->diff($today)->y;
+            return $age;
+        }else{
+            return 0;
+        }
 
     }
 

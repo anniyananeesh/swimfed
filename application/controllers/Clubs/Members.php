@@ -73,7 +73,6 @@ class Members extends Club_Controller {
         $post['discipline'] = '';
         $post['role'] = '';
         $post['note'] = '';
-        $post['current_status'] = '';
 
         $this->data['post'] = $post;
 
@@ -104,7 +103,6 @@ class Members extends Club_Controller {
               $this->form_validation->set_rules('discipline', 'Discipline', 'trim|required|xss_clean');
               $this->form_validation->set_rules('role', 'Member role', 'trim|required|xss_clean');
               $this->form_validation->set_rules('note', 'Note', 'trim|required|xss_clean');
-              $this->form_validation->set_rules('current_status', 'Current status', 'trim|required|xss_clean');
 
               $this->form_validation->set_error_delimiters('', '');
 
@@ -214,7 +212,6 @@ class Members extends Club_Controller {
                           'discipline' => $this->input->post('discipline', TRUE),
                           'role' => $this->input->post('role', TRUE),
                           'note' => $this->input->post('note', TRUE),
-                          'current_status' => $this->input->post('current_status', TRUE),
                           'type' => $this->data['activeTab'],
                           'dob' => $this->input->post('dob', TRUE),
                           'passport_no' => $this->input->post('passport_no', TRUE),
@@ -262,7 +259,6 @@ class Members extends Club_Controller {
         $post['discipline'] = $record->discipline;
         $post['role'] = $record->role;
         $post['note'] = $record->note;
-        $post['current_status'] = $record->current_status;
 
         $this->data['post'] = $post;
 
@@ -297,7 +293,6 @@ class Members extends Club_Controller {
               $this->form_validation->set_rules('discipline', 'Discipline', 'trim|required|xss_clean');
               $this->form_validation->set_rules('role', 'Member role', 'trim|required|xss_clean');
               $this->form_validation->set_rules('note', 'Note', 'trim|required|xss_clean');
-              $this->form_validation->set_rules('current_status', 'Current status', 'trim|required|xss_clean');
 
               $this->form_validation->set_error_delimiters('', '');
 
@@ -404,7 +399,6 @@ class Members extends Club_Controller {
                           'discipline' => $this->input->post('discipline', TRUE),
                           'role' => $this->input->post('role', TRUE),
                           'note' => $this->input->post('note', TRUE),
-                          'current_status' => $this->input->post('current_status', TRUE),
                           'dob' => $this->input->post('dob', TRUE),
                           'passport_no' => $this->input->post('passport_no', TRUE),
                           'passport_expiry' => $this->input->post('passport_expiry', TRUE),
