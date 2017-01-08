@@ -27,7 +27,7 @@
     </h4>
 
     <?php foreach ($v as $key => $value):?>
-    <div class="inbox-row widget-shadow item-row-email <?php echo ($value->is_read == 'Y') ? 'read' : 'unread';?>" data-id="<?php echo $this->mencrypt->encode($value->id);?>">
+    <div class="inbox-row widget-shadow item-row-checkbox <?php echo ($value->is_read == 'Y') ? 'read' : 'unread';?>" data-id="<?php echo $this->mencrypt->encode($value->id);?>">
 
       <div class="mail ">
           <input type="checkbox" class="checkbox item-checkbox <?php echo ($value->is_read == 'Y') ? 'read' : 'unread';?>" name="array_id[]" value="<?php echo $this->mencrypt->encode($value->id);?>">
@@ -46,7 +46,9 @@
       </a>
 
       <div class="mail-right">
+
         <div class="dropdown">
+
           <a href="#"  data-toggle="dropdown" aria-expanded="false">
             <p><i class="fa fa-ellipsis-v mail-icon"></i></p>
           </a>
@@ -60,7 +62,7 @@
 
             <?php if($value->attachment_url != NULL):?>
             <li>
-              <a target="_blank" href="<?php echo $fileShowPath?>/<?php echo $value->attachment_url?>" title="Download Attachment" data-id="<?php echo $this->mencrypt->encode($value->id);?>">
+              <a class="action-download-attachment" target="_blank" href="<?php echo $fileShowPath?>/<?php echo $value->attachment_url?>" title="Download Attachment" data-id="<?php echo $this->mencrypt->encode($value->id);?>">
                 <i class="fa fa-download mail-icon"></i>
                 Download Attachment
               </a>
@@ -76,7 +78,15 @@
           </ul>
         </div>
       </div>
+
       <div class="mail-right"><p><?php echo date("d M", strtotime($value->created_on))?></p></div>
+
+      <?php if($value->attachment_url != NULL):?>
+      <div class="mail-right" style="padding-top:5px;">
+          <a class="action-download-attachment" href="<?php echo $fileShowPath?>/<?php echo $value->attachment_url?>" target="_blank"><i class="fa fa-download mail-icon"></i></a>
+      </div>
+      <?php endif;?>
+
       <div class="clearfix"> </div>
       <div id="<?php echo $this->mencrypt->encode($value->id);?>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFour">
         <div class="mail-body">

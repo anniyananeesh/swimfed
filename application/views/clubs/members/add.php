@@ -23,7 +23,7 @@
                                     <div class="form-group">
                                         <label for="focusedinput" class="col-sm-4 control-label">First Name</label>
                                         <div class="col-sm-8">
-                                            <input type="text" class="form-control1" id="first_name" name="first_name" placeholder="***** Athletic Club" value="<?php echo ($post['first_name'] != NULL && $post['first_name'] != '') ? $post['first_name'] : '';?>">
+                                            <input type="text" class="form-control1" id="first_name" name="first_name" placeholder="" value="<?php echo ($post['first_name'] != NULL && $post['first_name'] != '') ? $post['first_name'] : '';?>">
                                             <?php if(form_error('first_name')):?>
                                                 <div class="error" ><?php echo form_error('first_name');?></div>
                                             <?php endif;?>
@@ -32,7 +32,7 @@
                                     <div class="form-group">
                                         <label for="focusedinput" class="col-sm-4 control-label">Last Name</label>
                                         <div class="col-sm-8">
-                                            <input type="text" class="form-control1" id="last_name" name="last_name" placeholder="***** Athletic Club" value="<?php echo ($post['last_name'] != NULL && $post['last_name'] != '') ? $post['last_name'] : '';?>">
+                                            <input type="text" class="form-control1" id="last_name" name="last_name" placeholder="" value="<?php echo ($post['last_name'] != NULL && $post['last_name'] != '') ? $post['last_name'] : '';?>">
                                             <?php if(form_error('last_name')):?>
                                                 <div class="error" ><?php echo form_error('last_name');?></div>
                                             <?php endif;?>
@@ -41,7 +41,7 @@
                                     <div class="form-group">
                                         <label for="focusedinput" class="col-sm-4 control-label">Father Name</label>
                                         <div class="col-sm-8">
-                                            <input type="text" class="form-control1" id="father_name" name="father_name" placeholder="***** Athletic Club" value="<?php echo ($post['father_name'] != NULL && $post['father_name'] != '') ? $post['father_name'] : '';?>">
+                                            <input type="text" class="form-control1" id="father_name" name="father_name" placeholder="" value="<?php echo ($post['father_name'] != NULL && $post['father_name'] != '') ? $post['father_name'] : '';?>">
                                             <?php if(form_error('father_name')):?>
                                                 <div class="error" ><?php echo form_error('father_name');?></div>
                                             <?php endif;?>

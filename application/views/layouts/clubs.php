@@ -68,6 +68,15 @@
 					classie.toggle( showLeftPush, 'disabled' );
 				}
 			}
+
+			$(function(){
+
+					$(document).on('click', '.action-download-attachment', function(){
+							var href = $(this).attr('href');
+							window.open(href,'_blank');
+					});
+
+			});
 		</script>
 	<!--scrolling js-->
 	<script src="<?php echo ADMIN_JS_PATH?>/jquery.nicescroll.js"></script>

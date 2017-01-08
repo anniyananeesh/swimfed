@@ -7,9 +7,9 @@
 <meta name="keywords" content="Aqautic Green Gate Admin" />
 <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
 <!-- Bootstrap Core CSS -->
-<link href="<?php echo ADMIN_CSS_PATH?>/bootstrap.css" rel='stylesheet' type='text/css' />
+<link href="<?php echo ADMIN_CSS_PATH?>/bootstrap.css" rel='stylesheet' />
 <!-- Custom CSS -->
-<link href="<?php echo ADMIN_CSS_PATH?>/style.css" rel='stylesheet' type='text/css' />
+<link href="<?php echo ADMIN_CSS_PATH?>/style.css" rel='stylesheet' />
 <!-- font CSS -->
 <!-- font-awesome icons -->
 <link href="<?php echo ADMIN_CSS_PATH?>/font-awesome.css" rel="stylesheet">
@@ -68,6 +68,15 @@
 					classie.toggle( showLeftPush, 'disabled' );
 				}
 			}
+
+			$(function(){
+
+					$(document).on('click', '.action-download-attachment', function(){
+							var href = $(this).attr('href');
+							window.open(href,'_blank');
+					});
+
+			});
 		</script>
 	<!--scrolling js-->
 	<script src="<?php echo ADMIN_JS_PATH?>/jquery.nicescroll.js"></script>

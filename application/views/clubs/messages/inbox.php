@@ -229,7 +229,7 @@
         });
 
         //Async make read status of each email
-        $(document).on('click', '.item-row-email', function(e){
+        $(document).on('click', '.item-row-checkbox', function(e){
 
             var markStatus = ($(this).hasClass('unread')) ? 'Y' : 'N';
             var emailID = $(this).attr('data-id');

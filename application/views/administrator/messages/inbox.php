@@ -229,11 +229,11 @@
         });
 
         //Async make read status of each email
-        $(document).on('click', '.item-row-email', function(e){
+        $(document).on('click', '.item-row-checkbox', function(e){
 
             var markStatus = ($(this).hasClass('unread')) ? 'Y' : 'N';
             var emailID = $(this).attr('data-id');
-            var elem = $(this);
+            var elem = $(this); 
 
             $.post('<?php echo HOST_URL . '/Async/' . ADMIN_URL ?>/inbox_set_mark_status/', {'email': emailID, 'mark': markStatus}, function(res){
 

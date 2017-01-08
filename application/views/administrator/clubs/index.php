@@ -18,7 +18,7 @@
 
                           <form action="" class="navbar-form navbar-right" method="post" enctype="application/x-www-form-urlencoded">
                             <div class="form-group">
-                              <input type="text" name="q" id="q" <?php echo(isset($post['q']) && $post['q'] != "") ? $post['q'] : '';?> class="form-control" placeholder="Search by Name / ID">
+                              <input type="text" name="q" id="q" <?php echo(isset($post['q']) && $post['q'] != "") ? $post['q'] : '';?> class="form-control" placeholder="Search by Name">
                             </div>
                             <button type="submit" class="btn green_button2">Search</button>
 

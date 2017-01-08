@@ -49,7 +49,7 @@
 
             <?php if($value->attachment_url != NULL):?>
             <li>
-              <a target="_blank" href="<?php echo $fileShowPath?>/<?php echo $value->attachment_url?>" title="Download Attachment" data-id="<?php echo $this->mencrypt->encode($value->id);?>">
+              <a class="action-download-attachment" target="_blank" href="<?php echo $fileShowPath?>/<?php echo $value->attachment_url?>" title="Download Attachment" data-id="<?php echo $this->mencrypt->encode($value->id);?>">
                 <i class="fa fa-download mail-icon"></i>
                 Download Attachment
               </a>
@@ -65,7 +65,16 @@
           </ul>
         </div>
       </div>
+
       <div class="mail-right"><p><?php echo date("d M", strtotime($value->created_on))?></p></div>
+
+
+      <?php if($value->attachment_url != NULL):?>
+      <div class="mail-right" style="padding-top:5px;">
+          <a class="action-download-attachment" href="<?php echo $fileShowPath?>/<?php echo $value->attachment_url?>" target="_blank"><i class="fa fa-download mail-icon"></i></a>
+      </div>
+      <?php endif;?>
+      
       <div class="clearfix"> </div>
 
     </div>

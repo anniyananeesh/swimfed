@@ -29,7 +29,7 @@
 
                           <form class="navbar-form navbar-right" method="get" enctype="application/x-www-form-urlencoded">
                             <div class="form-group">
-                              <input type="text" class="form-control" name="q" id="q" placeholder="Search by Name / ID">
+                              <input type="text" class="form-control" name="q" id="q" placeholder="Search by Name">
                             </div>
                             <button type="submit" class="btn green_button2">Search</button>
                           </form>
