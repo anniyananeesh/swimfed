@@ -27,12 +27,13 @@
     </h4>
 
     <?php foreach ($v as $key => $value):?>
-    <div class="inbox-row widget-shadow item-row-checkbox <?php echo ($value->is_read == 'Y') ? 'read' : 'unread';?>" data-id="<?php echo $this->mencrypt->encode($value->id);?>">
+    <div class="inbox-row widget-shadow" data-id="<?php echo $this->mencrypt->encode($value->id);?>">
 
       <div class="mail ">
           <input type="checkbox" class="checkbox item-checkbox <?php echo ($value->is_read == 'Y') ? 'read' : 'unread';?>" name="array_id[]" value="<?php echo $this->mencrypt->encode($value->id);?>">
       </div>
 
+      <div class="item-row-checkbox <?php echo ($value->is_read == 'Y') ? 'read' : 'unread';?>" data-id="<?php echo $this->mencrypt->encode($value->id);?>">
       <a role="button" data-toggle="collapse" data-parent="#accordion" href="#<?php echo $this->mencrypt->encode($value->id);?>" aria-expanded="true" aria-controls="collapseFour">
           <div class="mail">
               <img src="<?php echo ADMIN_IMG_PATH?>/a.png" alt=""/>
@@ -93,6 +94,8 @@
           </form>
         </div>
       </div>
+
+    </div>
     </div>
     <?php endforeach;?>
 
