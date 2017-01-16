@@ -10,6 +10,8 @@ class Clubs extends MY_Controller {
     protected $memberShowPath = MEMBER_SHOW_PATH;
     protected $passportShowPath = PASSPORT_SHOW_PATH;
     protected $cardShowPath = CARD_SHOW_PATH;
+    protected $clubCertiShowPath = CLUB_CERTI_SHOW_PATH;
+    protected $sponsorShowPath = SPONSOR_SHOW_PATH;
 
     public function __construct() {
 
@@ -165,6 +167,7 @@ class Clubs extends MY_Controller {
 
         $where = array();
         $where['club_fk'] = $this->mencrypt->decode($id);
+        $where[TBL_CLUBS . '.is_active'] = 'Y';
 
         if(isset($_GET) && $_GET['q'] != "") {
             $where['first_name LIKE'] = $_GET['q'] . '%';
@@ -181,6 +184,138 @@ class Clubs extends MY_Controller {
 
     }
 
+    public function members_export($id) {
+
+        //load our new PHPExcel library
+        $this->load->library('excel');
+        //activate worksheet number 1
+        $this->excel->setActiveSheetIndex(0);
+
+        $club = $this->modelNameAlias->fetchById($this->mencrypt->decode($id));
+
+        //name the worksheet
+        $this->excel->getActiveSheet()->setTitle($club->name . 'Member\'s list');
+
+        $fields = array(
+           'first_name',
+           'last_name',
+           'code',
+           'father_name',
+           'gender',
+           'city',
+           'emirate',
+           'country',
+           'contact_no',
+           'discipline',
+           'dob',
+           'passport_no',
+           'passport_expiry',
+           'is_active',
+           'created_on'
+        );
+
+        $this->excel->getActiveSheet()->getStyle('A1')->getFont()->setSize(20);
+        $this->excel->getActiveSheet()->getStyle('B1')->getFont()->setSize(20);
+        $this->excel->getActiveSheet()->getStyle('C1')->getFont()->setSize(20);
+        $this->excel->getActiveSheet()->getStyle('D1')->getFont()->setSize(20);
+        $this->excel->getActiveSheet()->getStyle('E1')->getFont()->setSize(20);
+        $this->excel->getActiveSheet()->getStyle('F1')->getFont()->setSize(20);
+        $this->excel->getActiveSheet()->getStyle('G1')->getFont()->setSize(20);
+        $this->excel->getActiveSheet()->getStyle('H1')->getFont()->setSize(20);
+        $this->excel->getActiveSheet()->getStyle('I1')->getFont()->setSize(20);
+        $this->excel->getActiveSheet()->getStyle('J1')->getFont()->setSize(20);
+        $this->excel->getActiveSheet()->getStyle('K1')->getFont()->setSize(20);
+        $this->excel->getActiveSheet()->getStyle('L1')->getFont()->setSize(20);
+        $this->excel->getActiveSheet()->getStyle('M1')->getFont()->setSize(20);
+        $this->excel->getActiveSheet()->getStyle('N1')->getFont()->setSize(20);
+        $this->excel->getActiveSheet()->getStyle('O1')->getFont()->setSize(20);
+
+        $this->excel->getActiveSheet()->getStyle('A1')->getFont()->setBold(true);
+        $this->excel->getActiveSheet()->getStyle('B1')->getFont()->setBold(true);
+        $this->excel->getActiveSheet()->getStyle('C1')->getFont()->setBold(true);
+        $this->excel->getActiveSheet()->getStyle('D1')->getFont()->setBold(true);
+        $this->excel->getActiveSheet()->getStyle('E1')->getFont()->setBold(true);
+        $this->excel->getActiveSheet()->getStyle('F1')->getFont()->setBold(true);
+        $this->excel->getActiveSheet()->getStyle('G1')->getFont()->setBold(true);
+        $this->excel->getActiveSheet()->getStyle('H1')->getFont()->setBold(true);
+        $this->excel->getActiveSheet()->getStyle('I1')->getFont()->setBold(true);
+        $this->excel->getActiveSheet()->getStyle('J1')->getFont()->setBold(true);
+        $this->excel->getActiveSheet()->getStyle('K1')->getFont()->setBold(true);
+        $this->excel->getActiveSheet()->getStyle('L1')->getFont()->setBold(true);
+        $this->excel->getActiveSheet()->getStyle('M1')->getFont()->setBold(true);
+        $this->excel->getActiveSheet()->getStyle('N1')->getFont()->setBold(true);
+        $this->excel->getActiveSheet()->getStyle('O1')->getFont()->setBold(true);
+
+         $this->excel->getActiveSheet()->setCellValue('A1', "First Name");
+         $this->excel->getActiveSheet()->setCellValue('B1', "Last Name");
+         $this->excel->getActiveSheet()->setCellValue('C1', "Code");
+         $this->excel->getActiveSheet()->setCellValue('D1', "Father's Name");
+         $this->excel->getActiveSheet()->setCellValue('E1', "Gender");
+
+         $this->excel->getActiveSheet()->setCellValue('F1', "City");
+         $this->excel->getActiveSheet()->setCellValue('G1', "Emirate");
+         $this->excel->getActiveSheet()->setCellValue('H1', "Country");
+         $this->excel->getActiveSheet()->setCellValue('I1', "Phone");
+         $this->excel->getActiveSheet()->setCellValue('J1', "Descipline");
+         $this->excel->getActiveSheet()->setCellValue('K1', "Date of birth");
+         $this->excel->getActiveSheet()->setCellValue('L1', "Passport No");
+         $this->excel->getActiveSheet()->setCellValue('M1', "Passport Expiry");
+         $this->excel->getActiveSheet()->setCellValue('N1', "Status");
+         $this->excel->getActiveSheet()->setCellValue('O1', "Member since");
+
+         $this->excel->getActiveSheet()->getColumnDimensionByColumn('A')->setAutoSize(true);
+         $this->excel->getActiveSheet()->getColumnDimensionByColumn('B')->setAutoSize(true);
+         $this->excel->getActiveSheet()->getColumnDimensionByColumn('C')->setAutoSize(true);
+         $this->excel->getActiveSheet()->getColumnDimensionByColumn('D')->setAutoSize(true);
+         $this->excel->getActiveSheet()->getColumnDimensionByColumn('E')->setAutoSize(true);
+         $this->excel->getActiveSheet()->getColumnDimensionByColumn('F')->setAutoSize(true);
+         $this->excel->getActiveSheet()->getColumnDimensionByColumn('G')->setAutoSize(true);
+         $this->excel->getActiveSheet()->getColumnDimensionByColumn('H')->setAutoSize(true);
+         $this->excel->getActiveSheet()->getColumnDimensionByColumn('I')->setAutoSize(true);
+         $this->excel->getActiveSheet()->getColumnDimensionByColumn('J')->setAutoSize(true);
+         $this->excel->getActiveSheet()->getColumnDimensionByColumn('K')->setAutoSize(true);
+         $this->excel->getActiveSheet()->getColumnDimensionByColumn('L')->setAutoSize(true);
+         $this->excel->getActiveSheet()->getColumnDimensionByColumn('M')->setAutoSize(true);
+         $this->excel->getActiveSheet()->getColumnDimensionByColumn('N')->setAutoSize(true);
+         $this->excel->getActiveSheet()->getColumnDimensionByColumn('O')->setAutoSize(true);
+
+        $users = $this->modelMembersAlias->fetchFields($fields, array('club_fk' => $this->mencrypt->decode($id)));
+
+        // Add data
+       for ($i = 0; $i < count($users); $i++) {
+         $this->excel->getActiveSheet()->setCellValue('A' . ($i + 2), $users[$i]->first_name)
+                                       ->setCellValue('B' . ($i + 2), $users[$i]->last_name)
+                                       ->setCellValue('C' . ($i + 2), $users[$i]->code)
+                                       ->setCellValue('D' . ($i + 2), $users[$i]->father_name)
+                                       ->setCellValue('E' . ($i + 2), ucfirst($users[$i]->gender))
+                                       ->setCellValue('F' . ($i + 2), $users[$i]->city)
+                                       ->setCellValue('G' . ($i + 2), $users[$i]->emirate)
+                                       ->setCellValue('H' . ($i + 2), $users[$i]->country)
+                                       ->setCellValue('I' . ($i + 2), $users[$i]->contact_no)
+                                       ->setCellValue('J' . ($i + 2), $users[$i]->discipline)
+                                       ->setCellValue('K' . ($i + 2), date('d F Y', strtotime($users[$i]->dob)))
+                                       ->setCellValue('L' . ($i + 2), $users[$i]->passport_no)
+                                       ->setCellValue('M' . ($i + 2), $users[$i]->passport_expiry)
+                                       ->setCellValue('N' . ($i + 2), ($users[$i]->is_active == 'Y') ? 'Enabled' : 'Disabled')
+                                       ->setCellValue('O' . ($i + 2), date('d F Y', strtotime($users[$i]->created_on)));
+
+       }
+
+        $time = date('d_m_Y');
+        $filename = 'Excel_' . $club->name . '_' . $time . '.xls';
+
+        header('Content-Type: application/vnd.ms-excel'); //mime type
+        header('Content-Disposition: attachment;filename="'.$filename.'"'); //tell browser what's the file name
+        header('Cache-Control: max-age=0'); //no cache
+
+        //save it to Excel5 format (excel 2003 .XLS file), change this to 'Excel2007' (and adjust the filename extension, also the header mime type)
+        //if you want to save it as .XLSX Excel 2007 format
+        $objWriter = PHPExcel_IOFactory::createWriter($this->excel, 'Excel5');
+
+        //force user to download the Excel file without writing it to server's HD
+        $objWriter->save('php://output');
+    }
+
     public function view_member($id, $memberID) {
 
         $this->data['content'] = $this->viewFolder . '/view_member';
@@ -190,12 +325,22 @@ class Clubs extends MY_Controller {
         $this->data['memberShowPath'] = $this->memberShowPath;
         $this->data['passportShowPath'] = $this->passportShowPath;
         $this->data['cardShowPath'] = $this->cardShowPath;
+        $this->data['sponsorShowPath'] = $this->sponsorShowPath;
+        $this->data['clubCertiShowPath'] = $this->clubCertiShowPath;
 
         $join = array(
            array('table' => TBL_CLUBS, 'condition' => TBL_CLUBS . '.id = ' . TBL_MEMBERS . '.club_fk', 'join' => 'LEFT')
         );
 
         $fields = array(TBL_MEMBERS . '.*', TBL_CLUBS . '.name', TBL_CLUBS . '.email as club_email');
+
+        //Get all passport images
+        $this->load->model( CLUB_VIEWS . '/model_visa_images', 'modelVisaImagesAlias');
+        $this->data['passport_visa_images'] = $this->modelVisaImagesAlias->fetchAll(array('member_fk' => $this->mencrypt->decode($memberID)), array('id' => 'DESC'));
+
+        //Get all sponsor certificates
+        $this->load->model( CLUB_VIEWS . '/model_sponsor_images', 'modelSponsorImagesAlias');
+        $this->data['sponsor_images'] = $this->modelSponsorImagesAlias->fetchAll(array('member_fk' => $this->mencrypt->decode($memberID)), array('id' => 'DESC'));
 
         $this->data['record'] = $this->modelMembersAlias->fetchRowFields( $fields, array(TBL_MEMBERS . '.id' => $this->mencrypt->decode($memberID)), array(), $join);
         $this->load->view($this->layout, $this->data);
@@ -259,6 +404,116 @@ class Clubs extends MY_Controller {
         }
 
         $this->load->view($this->layout, $this->data);
+    }
+
+    public function export() {
+
+         //load our new PHPExcel library
+         $this->load->library('excel');
+         //activate worksheet number 1
+         $this->excel->setActiveSheetIndex(0);
+         //name the worksheet
+         $this->excel->getActiveSheet()->setTitle('Clubs list');
+
+         $fields = array(
+            'name',
+            'club_code',
+            'email',
+            'username',
+            'emirate',
+            'address',
+            'pincode',
+            'url',
+            'contact_person',
+            'contact_no',
+            'fax_no',
+            'created_on'
+         );
+
+         $this->excel->getActiveSheet()->getStyle('A1')->getFont()->setSize(20);
+         $this->excel->getActiveSheet()->getStyle('B1')->getFont()->setSize(20);
+         $this->excel->getActiveSheet()->getStyle('C1')->getFont()->setSize(20);
+         $this->excel->getActiveSheet()->getStyle('D1')->getFont()->setSize(20);
+         $this->excel->getActiveSheet()->getStyle('E1')->getFont()->setSize(20);
+         $this->excel->getActiveSheet()->getStyle('F1')->getFont()->setSize(20);
+         $this->excel->getActiveSheet()->getStyle('G1')->getFont()->setSize(20);
+         $this->excel->getActiveSheet()->getStyle('H1')->getFont()->setSize(20);
+         $this->excel->getActiveSheet()->getStyle('I1')->getFont()->setSize(20);
+         $this->excel->getActiveSheet()->getStyle('J1')->getFont()->setSize(20);
+         $this->excel->getActiveSheet()->getStyle('K1')->getFont()->setSize(20);
+         $this->excel->getActiveSheet()->getStyle('L1')->getFont()->setSize(20);
+
+         $this->excel->getActiveSheet()->getStyle('A1')->getFont()->setBold(true);
+         $this->excel->getActiveSheet()->getStyle('B1')->getFont()->setBold(true);
+         $this->excel->getActiveSheet()->getStyle('C1')->getFont()->setBold(true);
+         $this->excel->getActiveSheet()->getStyle('D1')->getFont()->setBold(true);
+         $this->excel->getActiveSheet()->getStyle('E1')->getFont()->setBold(true);
+         $this->excel->getActiveSheet()->getStyle('F1')->getFont()->setBold(true);
+         $this->excel->getActiveSheet()->getStyle('G1')->getFont()->setBold(true);
+         $this->excel->getActiveSheet()->getStyle('H1')->getFont()->setBold(true);
+         $this->excel->getActiveSheet()->getStyle('I1')->getFont()->setBold(true);
+         $this->excel->getActiveSheet()->getStyle('J1')->getFont()->setBold(true);
+         $this->excel->getActiveSheet()->getStyle('K1')->getFont()->setBold(true);
+         $this->excel->getActiveSheet()->getStyle('L1')->getFont()->setBold(true);
+
+          $this->excel->getActiveSheet()->setCellValue('A1', "Name");
+          $this->excel->getActiveSheet()->setCellValue('B1', "Club Code");
+          $this->excel->getActiveSheet()->setCellValue('C1', "Email");
+          $this->excel->getActiveSheet()->setCellValue('D1', "Username");
+          $this->excel->getActiveSheet()->setCellValue('E1', "Emirate");
+
+          $this->excel->getActiveSheet()->setCellValue('F1', "Address");
+          $this->excel->getActiveSheet()->setCellValue('G1', "Pincode");
+          $this->excel->getActiveSheet()->setCellValue('H1', "URL");
+          $this->excel->getActiveSheet()->setCellValue('I1', "Contact Person");
+          $this->excel->getActiveSheet()->setCellValue('J1', "Phone");
+          $this->excel->getActiveSheet()->setCellValue('K1', "Fax");
+          $this->excel->getActiveSheet()->setCellValue('L1', "Member since");
+
+          $this->excel->getActiveSheet()->getColumnDimensionByColumn('A')->setAutoSize(true);
+          $this->excel->getActiveSheet()->getColumnDimensionByColumn('B')->setAutoSize(true);
+          $this->excel->getActiveSheet()->getColumnDimensionByColumn('C')->setAutoSize(true);
+          $this->excel->getActiveSheet()->getColumnDimensionByColumn('D')->setAutoSize(true);
+          $this->excel->getActiveSheet()->getColumnDimensionByColumn('E')->setAutoSize(true);
+          $this->excel->getActiveSheet()->getColumnDimensionByColumn('F')->setAutoSize(true);
+          $this->excel->getActiveSheet()->getColumnDimensionByColumn('G')->setAutoSize(true);
+          $this->excel->getActiveSheet()->getColumnDimensionByColumn('H')->setAutoSize(true);
+          $this->excel->getActiveSheet()->getColumnDimensionByColumn('I')->setAutoSize(true);
+          $this->excel->getActiveSheet()->getColumnDimensionByColumn('J')->setAutoSize(true);
+          $this->excel->getActiveSheet()->getColumnDimensionByColumn('K')->setAutoSize(true);
+          $this->excel->getActiveSheet()->getColumnDimensionByColumn('L')->setAutoSize(true);
+
+         $users = $this->modelNameAlias->fetchFields($fields, array());
+
+         // Add data
+        for ($i = 0; $i < count($users); $i++) {
+        	$this->excel->getActiveSheet()->setCellValue('A' . ($i + 2), $users[$i]->name)
+        	                              ->setCellValue('B' . ($i + 2), $users[$i]->club_code)
+        	                              ->setCellValue('C' . ($i + 2), $users[$i]->email)
+        	                              ->setCellValue('D' . ($i + 2), $users[$i]->username)
+        	                              ->setCellValue('E' . ($i + 2), $users[$i]->emirate)
+                                        ->setCellValue('F' . ($i + 2), $users[$i]->address)
+                                        ->setCellValue('G' . ($i + 2), $users[$i]->pincode)
+                                        ->setCellValue('H' . ($i + 2), $users[$i]->url)
+                                        ->setCellValue('I' . ($i + 2), $users[$i]->contact_person)
+                                        ->setCellValue('J' . ($i + 2), $users[$i]->contact_no)
+                                        ->setCellValue('K' . ($i + 2), $users[$i]->fax_no)
+                                        ->setCellValue('L' . ($i + 2), date('d F Y', strtotime($users[$i]->created_on)));
+
+        }
+
+         $filename = 'Excel_' . time() . '.xls';
+
+         header('Content-Type: application/vnd.ms-excel'); //mime type
+         header('Content-Disposition: attachment;filename="'.$filename.'"'); //tell browser what's the file name
+         header('Cache-Control: max-age=0'); //no cache
+
+         //save it to Excel5 format (excel 2003 .XLS file), change this to 'Excel2007' (and adjust the filename extension, also the header mime type)
+         //if you want to save it as .XLSX Excel 2007 format
+         $objWriter = PHPExcel_IOFactory::createWriter($this->excel, 'Excel5');
+
+         //force user to download the Excel file without writing it to server's HD
+         $objWriter->save('php://output');
     }
 
     public function member_status( $clubID, $memberID, $status) {

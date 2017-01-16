@@ -1,7 +1,7 @@
 <ul id="myTabs" class="nav nav-tabs" role="tablist">
-    <li role="presentation" class="<?php echo ($activeTab == 'player') ? 'active' : ''?>">
-      <a href="<?php echo $ctrlUrl?>/add/player" id="home-tab" role="tab">
-        PLAYER
+    <li role="presentation" class="<?php echo ($activeTab == 'athlete') ? 'active' : ''?>">
+      <a href="<?php echo $ctrlUrl?>/add/athlete" id="home-tab" role="tab">
+        ATHLETE
       </a>
     </li>
     <li role="presentation" class="<?php echo ($activeTab == 'technical') ? 'active' : ''?>">

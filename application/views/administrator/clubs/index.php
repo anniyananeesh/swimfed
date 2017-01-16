@@ -14,6 +14,7 @@
                         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                           <ul class="nav navbar-nav  navbar-left">
                              <li><button onclick="window.location.href='<?php echo $ctrlUrl;?>'" class="blue_button3">Refresh</button></li>
+                             <li><button onclick="window.location.href='<?php echo $ctrlUrl;?>/export'" class="blue_button3" style="background: #d61818;">Export</button></li>
                            </ul>
 
                           <form action="" class="navbar-form navbar-right" method="post" enctype="application/x-www-form-urlencoded">

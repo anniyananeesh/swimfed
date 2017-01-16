@@ -1,3 +1,205 @@
+<link href="<?php echo PLUGINS_PATH?>/upload/uploadfile.css" type="text/css" rel="stylesheet" />
+<script src="<?php echo PLUGINS_PATH?>/upload/jquery.uploadfile.js"></script>
+
+
+<script type="text/javascript">
+
+    $(function(){
+
+          var settings = {
+              dragDrop:false,
+              fileName: "profilePic",
+              returnType:"json",
+              showDelete:true,
+              showQueueDiv: "upload-container",
+              showPreview: true,
+              previewHeight: 160,
+              previewWidth: 160,
+              showProgress: true,
+              showFileSize: false,
+              showFileCounter: false,
+              showDelete: true,
+              showError: true,
+              maxFileCount: 1,
+              allowedTypes: "jpg,png",
+              multiple: true,
+              autoSubmit: false,
+              uploadStr: '<i class="fa fa-paperclip"></i> Upload Passport size photo!',
+              acceptFiles: 'image/*',
+              maxFileSize:1000*1024,
+              statusBarWidth: 160,
+              onSelect:function(files) {
+                  $("#upload-container").fadeIn(350);
+                  $('#upload-passport-photo-default').hide();
+              },
+              afterUploadAll:function(obj) {
+
+              },
+              customProgressBar: function(obj,s) {
+
+                    this.statusbar = $("#upload-container");
+                    this.container = $("<div class='img-thumb'></div>").appendTo(this.statusbar);
+
+                    this.preview = $("<img class='ajax-file-upload-preview' />").width(s.previewWidth).height(s.previewHeight).appendTo(this.container).hide();
+                    this.filename = $("<div class='ajax-file-upload-filename' style='display:none;'></div>").appendTo(this.container);
+                    this.progressDiv = $("<div class='ajax-file-upload-progress' style='display:none;'>").appendTo(this.container).hide();
+                    this.progressbar = $("<div class='ajax-file-upload-bar' style='display:none;'></div>").appendTo(this.progressDiv);
+                    this.abort = $("<div style='display:none;'>" + s.abortStr + "</div>").appendTo(this.container).hide();
+                    this.cancel = $("<div style='display:none;'>" + s.cancelStr + "</div>").appendTo(this.container).hide();
+                    this.done = $("<div style='display:none;'>" + s.doneStr + "</div>").appendTo(this.container).hide();
+                    this.download = $("<div style='display:none;'>" + s.downloadStr + "</div>").appendTo(this.container).hide();
+                    this.del = $("<span class='del-thumb'><i class='ion-close-circled'></i></span>").appendTo(this.container);
+
+                }
+
+          };
+
+
+          var settingsOtherDetails = {
+              dragDrop:false,
+              fileName: "myfilepassport",
+              returnType:"json",
+              showDelete:true,
+              showQueueDiv: "upload-container2",
+              showPreview: true,
+              previewHeight: 120,
+              previewWidth: 120,
+              showProgress: true,
+              showFileSize: false,
+              showFileCounter: false,
+              showDelete: true,
+              showError: true,
+              maxFileCount: 3,
+              allowedTypes: "jpg,png",
+              multiple: true,
+              autoSubmit: false,
+              uploadStr: '<i class="fa fa-paperclip"></i> Upload Passport pages & Emirates ID!',
+              acceptFiles: 'image/*',
+              maxFileSize: 3000*1024,
+              statusBarWidth: 160,
+              onSelect:function(files) {
+                  $("#upload-container2").fadeIn(350);
+                  //$('#upload-passport-photo-default2').hide();
+              },
+              customProgressBar: function(obj,s) {
+
+                    this.statusbar = $("#upload-container2");
+                    this.container = $("<div class='img-thumb'></div>").appendTo(this.statusbar);
+
+                    this.preview = $("<img class='ajax-file-upload-preview' />").width(s.previewWidth).height(s.previewHeight).appendTo(this.container).hide();
+                    this.filename = $("<div class='ajax-file-upload-filename' style='display:none;'></div>").appendTo(this.container);
+                    this.progressDiv = $("<div class='ajax-file-upload-progress' style='display:none;'>").appendTo(this.container).hide();
+                    this.progressbar = $("<div class='ajax-file-upload-bar' style='display:none;'></div>").appendTo(this.progressDiv);
+                    this.abort = $("<div style='display:none;'>" + s.abortStr + "</div>").appendTo(this.container).hide();
+                    this.cancel = $("<div style='display:none;'>" + s.cancelStr + "</div>").appendTo(this.container).hide();
+                    this.done = $("<div style='display:none;'>" + s.doneStr + "</div>").appendTo(this.container).hide();
+                    this.download = $("<div style='display:none;'>" + s.downloadStr + "</div>").appendTo(this.container).hide();
+                    this.del = $("<span class='del-thumb'><i class='ion-close-circled'></i></span>").appendTo(this.container);
+
+                }
+
+          };
+
+
+          var settingsSponsor = {
+              dragDrop:false,
+              fileName: "sponsorfile",
+              returnType:"json",
+              showDelete:true,
+              showQueueDiv: "upload-container3",
+              showPreview: true,
+              previewHeight: 120,
+              previewWidth: 120,
+              showProgress: true,
+              showFileSize: false,
+              showFileCounter: false,
+              showDelete: true,
+              statusBarWidth: 160,
+              showError: true,
+              maxFileCount: 4,
+              allowedTypes: "jpg,png",
+              multiple: true,
+              autoSubmit: false,
+              uploadStr: '<i class="fa fa-paperclip"></i> Upload Sponsor details!',
+              acceptFiles: 'image/*',
+              maxFileSize: 3000*1024,
+              onSelect:function(files) {
+                  $("#upload-container3").fadeIn(350);
+              },
+              customProgressBar: function(obj,s) {
+
+                    this.statusbar = $("#upload-container3");
+                    this.container = $("<div class='img-thumb'></div>").appendTo(this.statusbar);
+
+                    this.preview = $("<img class='ajax-file-upload-preview' />").width(s.previewWidth).height(s.previewHeight).appendTo(this.container).hide();
+                    this.filename = $("<div class='ajax-file-upload-filename' style='display:none;'></div>").appendTo(this.container);
+                    this.progressDiv = $("<div class='ajax-file-upload-progress' style='display:none;'>").appendTo(this.container).hide();
+                    this.progressbar = $("<div class='ajax-file-upload-bar' style='display:none;'></div>").appendTo(this.progressDiv);
+                    this.abort = $("<div style='display:none;'>" + s.abortStr + "</div>").appendTo(this.container).hide();
+                    this.cancel = $("<div style='display:none;'>" + s.cancelStr + "</div>").appendTo(this.container).hide();
+                    this.done = $("<div style='display:none;'>" + s.doneStr + "</div>").appendTo(this.container).hide();
+                    this.download = $("<div style='display:none;'>" + s.downloadStr + "</div>").appendTo(this.container).hide();
+                    this.del = $("<span class='del-thumb'><i class='ion-close-circled'></i></span>").appendTo(this.container);
+
+                }
+
+          };
+
+
+          var settingsClubCertificate = {
+              url: "<?php echo HOST_URL?>/Async/<?php echo CLUB_URL?>/upload_club_certificate",
+              dragDrop:false,
+              fileName: "clubfile",
+              returnType:"json",
+              showDelete:true,
+              showQueueDiv: "upload-container4",
+              showPreview: true,
+              statusBarWidth: 160,
+              previewHeight: 120,
+              previewWidth: 120,
+              showProgress: true,
+              showFileSize: false,
+              showFileCounter: false,
+              showDelete: true,
+              showError: true,
+              maxFileCount: 1,
+              allowedTypes: "jpg,png,pdf",
+              multiple: true,
+              autoSubmit: false,
+              uploadStr: '<i class="fa fa-paperclip"></i> Upload Club certificate!',
+              acceptFiles: "image/*, .pdf",
+              maxFileSize: 3000*1024,
+              onSelect:function(files) {
+                  $("#upload-container4").fadeIn(350);
+              },
+              customProgressBar: function(obj,s) {
+
+                    this.statusbar = $("#upload-container4");
+                    this.container = $("<div class='img-thumb'></div>").appendTo(this.statusbar);
+
+                    this.preview = $("<img class='ajax-file-upload-preview' />").width(s.previewWidth).height(s.previewHeight).appendTo(this.container).hide();
+                    this.filename = $("<div class='ajax-file-upload-filename' style='display:none;'></div>").appendTo(this.container);
+                    this.progressDiv = $("<div class='ajax-file-upload-progress' style='display:none;'>").appendTo(this.container).hide();
+                    this.progressbar = $("<div class='ajax-file-upload-bar' style='display:none;'></div>").appendTo(this.progressDiv);
+                    this.abort = $("<div style='display:none;'>" + s.abortStr + "</div>").appendTo(this.container).hide();
+                    this.cancel = $("<div style='display:none;'>" + s.cancelStr + "</div>").appendTo(this.container).hide();
+                    this.done = $("<div style='display:none;'>" + s.doneStr + "</div>").appendTo(this.container).hide();
+                    this.download = $("<div style='display:none;'>" + s.downloadStr + "</div>").appendTo(this.container).hide();
+                    this.del = $("<span class='del-thumb'><i class='ion-close-circled'></i></span>").appendTo(this.container);
+
+                }
+
+          };
+
+          var uploadPhoto = $("#passportPhotoUploadBtn").uploadFile(settings);
+          var uploadOtherDetails = $("#passportDetailsUploadBtn").uploadFile(settingsOtherDetails);
+          var uploadSponsor = $("#sponsorUploadBtn").uploadFile(settingsSponsor);
+          var uploadClubCertificate = $("#clubCertificateUploadBtn").uploadFile(settingsClubCertificate);
+
+    })
+
+</script>
+
 <!-- main content start-->
 <div id="page-wrapper">
     <div class="main-page">
@@ -14,7 +216,7 @@
                         <!--******FORM PLAYER START************-->
                         <div class="tab-pane" id="home">
 
-                            <form class="form-horizontal" action="" method="post" enctype="multipart/form-data">
+                            <form class="form-horizontal" id="member_add_frm" action="" method="post" enctype="multipart/form-data">
 
                                 <?php $this->load->view('shared/alerts');?>
                                 <?php $this->load->view('shared/flash-message');?>
@@ -23,7 +225,7 @@
                                     <div class="form-group">
                                         <label for="focusedinput" class="col-sm-4 control-label">First Name</label>
                                         <div class="col-sm-8">
-                                            <input type="text" class="form-control1" id="first_name" name="first_name" placeholder="" value="<?php echo ($post['first_name'] != NULL && $post['first_name'] != '') ? $post['first_name'] : '';?>">
+                                            <input type="text" class="form-control1" id="first_name" name="first_name" placeholder="" value="<?php echo ($post['first_name'] != NULL && $post['first_name'] != '') ? $post['first_name'] : '';?>" >
                                             <?php if(form_error('first_name')):?>
                                                 <div class="error" ><?php echo form_error('first_name');?></div>
                                             <?php endif;?>
@@ -32,16 +234,16 @@
                                     <div class="form-group">
                                         <label for="focusedinput" class="col-sm-4 control-label">Last Name</label>
                                         <div class="col-sm-8">
-                                            <input type="text" class="form-control1" id="last_name" name="last_name" placeholder="" value="<?php echo ($post['last_name'] != NULL && $post['last_name'] != '') ? $post['last_name'] : '';?>">
+                                            <input type="text" class="form-control1" id="last_name" name="last_name" placeholder="" value="<?php echo ($post['last_name'] != NULL && $post['last_name'] != '') ? $post['last_name'] : '';?>" >
                                             <?php if(form_error('last_name')):?>
                                                 <div class="error" ><?php echo form_error('last_name');?></div>
                                             <?php endif;?>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="focusedinput" class="col-sm-4 control-label">Father Name</label>
+                                        <label for="focusedinput" class="col-sm-4 control-label">Father's Name</label>
                                         <div class="col-sm-8">
-                                            <input type="text" class="form-control1" id="father_name" name="father_name" placeholder="" value="<?php echo ($post['father_name'] != NULL && $post['father_name'] != '') ? $post['father_name'] : '';?>">
+                                            <input type="text" class="form-control1" id="father_name" name="father_name" placeholder="" value="<?php echo ($post['father_name'] != NULL && $post['father_name'] != '') ? $post['father_name'] : '';?>" >
                                             <?php if(form_error('father_name')):?>
                                                 <div class="error" ><?php echo form_error('father_name');?></div>
                                             <?php endif;?>
@@ -66,7 +268,7 @@
                                     <div class="form-group">
                                         <label for="focusedinput" class="col-sm-4 control-label">Date of Birth</label>
                                         <div class="col-sm-6">
-                                            <input type="text" class="form-control1" id="dob" name="dob" placeholder="MM/DD/YY" value="<?php echo ($post['dob'] != NULL && $post['dob'] != '') ? $post['dob'] : '';?>">
+                                            <input type="text" class="form-control1" id="dob" name="dob" placeholder="MM/DD/YY" value="<?php echo ($post['dob'] != NULL && $post['dob'] != '') ? $post['dob'] : '';?>" >
                                             <?php if(form_error('dob')):?>
                                                 <div class="error" ><?php echo form_error('dob');?></div>
                                             <?php endif;?>
@@ -75,7 +277,7 @@
                                     <div class="form-group">
                                         <label for="focusedinput" class="col-sm-4 control-label">Passport Number</label>
                                         <div class="col-sm-8">
-                                            <input type="text" class="form-control1" id="passport_no" name="passport_no" placeholder="" value="<?php echo ($post['passport_no'] != NULL && $post['passport_no'] != '') ? $post['passport_no'] : '';?>">
+                                            <input type="text" class="form-control1" id="passport_no" name="passport_no" placeholder="" value="<?php echo ($post['passport_no'] != NULL && $post['passport_no'] != '') ? $post['passport_no'] : '';?>" >
                                             <?php if(form_error('passport_no')):?>
                                                 <div class="error" ><?php echo form_error('passport_no');?></div>
                                             <?php endif;?>
@@ -85,7 +287,7 @@
                                     <div class="form-group">
                                         <label for="focusedinput" class="col-sm-4 control-label">Passport Expiry Date</label>
                                         <div class="col-sm-6">
-                                            <input type="text" class="form-control1" name="passport_expiry" id="passport_expiry" placeholder="DD/MM/YY" value="<?php echo ($post['passport_expiry'] != NULL && $post['passport_expiry'] != '') ? $post['passport_expiry'] : '';?>">
+                                            <input type="text" class="form-control1" name="passport_expiry" id="passport_expiry" placeholder="DD/MM/YY" value="<?php echo ($post['passport_expiry'] != NULL && $post['passport_expiry'] != '') ? $post['passport_expiry'] : '';?>" >
                                             <?php if(form_error('passport_expiry')):?>
                                                 <div class="error" ><?php echo form_error('passport_expiry');?></div>
                                             <?php endif;?>
@@ -95,7 +297,7 @@
                                     <div class="form-group">
                                         <label for="selector1" class="col-sm-4 control-label">Nationality</label>
                                         <div class="col-sm-8">
-                                            <select name="country" id="country" class="form-control1">
+                                            <select name="country" id="country" class="form-control1" >
                                               <option value="AF">Afghanistan</option>
                                               <option value="AX">Åland Islands</option>
                                               <option value="AL">Albania</option>
@@ -355,12 +557,13 @@
                                     <div class="form-group">
                                         <label for="selector1" class="col-sm-4 control-label">Current Emirate</label>
                                         <div class="col-sm-8">
-                                            <select name="emirate" id="emirate" class="form-control1">
+                                            <select name="emirate" id="emirate" class="form-control1" >
                                                 <option value="Abu Dhabi" <?php echo (isset($post['emirate']) && $post['emirate'] == 'Abu Dhabi') ? 'selected' : '';?>>Abu Dhabi</option>
                                                 <option value="Dubai" <?php echo (isset($post['emirate']) && $post['emirate'] == 'Dubai') ? 'selected' : '';?>>Dubai</option>
+                                                <option value="Al Ain" <?php echo (isset($post['emirate']) && $post['emirate'] == 'Al Ain') ? 'selected' : '';?>>Al Ain</option>
                                                 <option value="Sharjah" <?php echo (isset($post['emirate']) && $post['emirate'] == 'Sharjah') ? 'selected' : '';?>>Sharjah</option>
                                                 <option value="Ajman" <?php echo (isset($post['emirate']) && $post['emirate'] == 'Ajman') ? 'selected' : '';?>>Ajman</option>
-                                                <option value="Ras Al Khaima" <?php echo (isset($post['emirate']) && $post['emirate'] == 'Ras Al Khaima') ? 'selected' : '';?>>Ras Al Khaima</option>
+                                                <option value="Ras Al Khaimah" <?php echo (isset($post['emirate']) && $post['emirate'] == 'Ras Al Khaimah') ? 'selected' : '';?>>Ras Al Khaimah</option>
                                                 <option value="Fujairah" <?php echo (isset($post['emirate']) && $post['emirate'] == 'Fujairah') ? 'selected' : '';?>>Fujairah</option>
                                             </select>
 
@@ -372,7 +575,7 @@
                                     <div class="form-group">
                                         <label for="focusedinput" class="col-sm-4 control-label">City</label>
                                         <div class="col-sm-8">
-                                            <input type="text" class="form-control1" id="city" name="city" placeholder="" value="<?php echo ($post['city'] != NULL && $post['city'] != '') ? $post['city'] : '';?>">
+                                            <input type="text" class="form-control1" id="city" name="city"  placeholder="" value="<?php echo ($post['city'] != NULL && $post['city'] != '') ? $post['city'] : '';?>">
                                             <?php if(form_error('city')):?>
                                                 <div class="error" ><?php echo form_error('city');?></div>
                                             <?php endif;?>
@@ -381,7 +584,7 @@
                                     <div class="form-group">
                                         <label for="focusedinput" class="col-sm-4 control-label">Mobile Number</label>
                                         <div class="col-sm-8">
-                                            <input type="text" class="form-control1" id="contact_no" name="contact_no" placeholder="05" value="<?php echo ($post['contact_no'] != NULL && $post['contact_no'] != '') ? $post['contact_no'] : '';?>">
+                                            <input type="text" class="form-control1" id="contact_no"  name="contact_no" placeholder="05" value="<?php echo ($post['contact_no'] != NULL && $post['contact_no'] != '') ? $post['contact_no'] : '';?>">
                                             <?php if(form_error('contact_no')):?>
                                                 <div class="error" ><?php echo form_error('contact_no');?></div>
                                             <?php endif;?>
@@ -389,27 +592,25 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="smallinput" class="col-sm-4 control-label label-input-sm">Descipline</label>
+                                        <label for="smallinput" class="col-sm-4 control-label label-input-sm">Discipline</label>
                                         <div class="col-sm-8">
-                                            <input type="text" class="form-control1 input-sm" id="discipline" name="discipline" placeholder="" value="<?php echo ($post['discipline'] != NULL && $post['discipline'] != '') ? $post['discipline'] : '';?>">
+
+                                            <select name="discipline" id="discipline" class="form-control1" >
+                                              <option value="Swimming" <?php echo (isset($post['discipline']) && $post['discipline'] == 'Swimming') ? 'selected' : '';?>>Swimming</option>
+                                              <option value="Water Polo" <?php echo (isset($post['discipline']) && $post['discipline'] == 'Water Polo') ? 'selected' : '';?>>Water Polo</option>
+                                              <option value="Diving" <?php echo (isset($post['discipline']) && $post['discipline'] == 'Diving') ? 'selected' : '';?>>Diving</option>
+                                              <option value="Synchronized Swimming" <?php echo (isset($post['discipline']) && $post['discipline'] == 'Synchronized Swimming') ? 'selected' : '';?>>Synchronized Swimming</option>
+                                            </select>
                                             <?php if(form_error('discipline')):?>
                                                 <div class="error" ><?php echo form_error('discipline');?></div>
                                             <?php endif;?>
                                         </div>
                                     </div>
-                                    <div class="form-group mb-n">
-                                        <label for="largeinput" class="col-sm-4 control-label label-input-lg">Role</label>
-                                        <div class="col-sm-8">
-                                            <input type="text" class="form-control1 input-lg" id="role" name="role" placeholder="" value="<?php echo ($post['role'] != NULL && $post['role'] != '') ? $post['role'] : '';?>">
-                                            <?php if(form_error('role')):?>
-                                                <div class="error" ><?php echo form_error('role');?></div>
-                                            <?php endif;?>
-                                        </div>
-                                    </div>
+
                                     <div class="form-group">
                                         <label for="txtarea1" class="col-sm-4 control-label">Note</label>
                                         <div class="col-sm-8">
-                                            <textarea name="note" id="note" cols="50" rows="8" class="form-control3"><?php echo ($post['note'] != NULL && $post['note'] != '') ? $post['note'] : '';?></textarea>
+                                            <textarea name="note" id="note" cols="50" rows="8"  class="form-control3"><?php echo ($post['note'] != NULL && $post['note'] != '') ? $post['note'] : '';?></textarea>
                                             <?php if(form_error('note')):?>
                                                 <div class="error" ><?php echo form_error('note');?></div>
                                             <?php endif;?>
@@ -422,31 +623,13 @@
                                     <div class="compose-right">
 
                                         <div class="form-group mb-n">
-                                            <div class="btn btn-default btn-file blue_button2">
-                                                <i class="fa fa-paperclip"></i> Upload Passport size photo!
-                                                <input type="file" name="userfile" id="userfile">
-                                            </div>
-                                            <p class="help-block">Upload Passport size photo! | Max. 1Mb</p>
-                                        </div>
 
-                                        <div class="member_img">
-                                            <img src="<?php echo ADMIN_IMG_PATH?>/avatar.png" alt="">
-                                        </div>
+                                            <div id="passportPhotoUploadBtn" class="btn btn-default btn-file blue_button2" style="padding: 0px;"><i class="fa fa-paperclip"></i> Upload profile photo!</div>
+                                            <div class="clearfix"></div>
+                                            <p class="help-block">Upload profile photo with dimensions 320px 320px! | Max. 1Mb</p>
 
-                                    </div>
+                                            <div class="upload-container mt-sm" id="upload-container"></div>
 
-                                    <div class="compose-right">
-
-                                        <div class="form-group mb-n">
-                                            <div class="btn btn-default btn-file blue_button2">
-                                                <i class="fa fa-paperclip"></i> Upload Passport front page
-                                                <input type="file" name="passportfront" id="passportfront">
-                                            </div>
-                                            <p class="help-block">Upload Passport size photo! | Max. 1Mb</p>
-                                        </div>
-
-                                        <div class="member_img">
-                                            <img src="<?php echo ADMIN_IMG_PATH?>/passport.jpg" alt="">
                                         </div>
 
                                     </div>
@@ -454,31 +637,38 @@
                                     <div class="compose-right">
 
                                         <div class="form-group mb-n">
-                                            <div class="btn btn-default btn-file blue_button2">
-                                                <i class="fa fa-paperclip"></i> Upload Passport visa page
-                                                <input type="file" name="passportvisa" id="passportvisa">
-                                            </div>
-                                            <p class="help-block">Upload Passport size photo! | Max. 1Mb</p>
-                                        </div>
 
-                                        <div class="member_img">
-                                            <img src="<?php echo ADMIN_IMG_PATH?>/visa.jpg" alt="">
+                                            <div id="passportDetailsUploadBtn" class="btn btn-default btn-file blue_button2" style="padding: 0px;"><i class="fa fa-paperclip"></i> Upload Passport & Emirates ID!</div>
+                                            <div class="clearfix"></div>
+                                            <p class="help-block">Upload Passport & Emirates ID | Max. 3Mb</p>
+
+                                            <div class="upload-container mt-sm" id="upload-container2"></div>
                                         </div>
 
                                     </div>
 
                                     <div class="compose-right">
 
-                                        <div class="form-group">
-                                            <div class="btn btn-default btn-file blue_button2">
-                                                <i class="fa fa-paperclip"></i> Upload your ID card!
-                                                <input type="file" name="idcard" id="idcard">
-                                            </div>
-                                            <p class="help-block">Upload Passport size photo! | Max. 1Mb</p>
+                                        <div class="form-group mb-n">
+
+                                            <div id="sponsorUploadBtn" class="btn btn-default btn-file blue_button2" style="padding: 0px;"><i class="fa fa-paperclip"></i> Upload Sponsor details !</div>
+                                            <div class="clearfix"></div>
+                                            <p class="help-block">Upload sponsor details | Max. 3Mb</p>
+
+                                            <div class="upload-container mt-sm" id="upload-container3"></div>
                                         </div>
 
-                                        <div class="member_img">
-                                            <img src="<?php echo ADMIN_IMG_PATH?>/id_icon.jpg" alt="">
+                                    </div>
+
+                                    <div class="compose-right">
+
+                                        <div class="form-group mb-n">
+
+                                            <div id="clubCertificateUploadBtn" class="btn btn-default btn-file blue_button2" style="padding: 0px;"><i class="fa fa-paperclip"></i> Upload Club certificate!</div>
+                                            <div class="clearfix"></div>
+                                            <p class="help-block">Upload image / pdf | Max. 1Mb</p>
+
+                                            <div class="upload-container mt-sm" id="upload-container4"></div>
                                         </div>
 
                                     </div>
@@ -489,7 +679,7 @@
                                 <div class="form-group mb-n">
                                     <label for="largeinput" class="col-sm-2 control-label label-input-lg">&nbsp;</label>
                                     <div class="col-sm-6 ">
-                                        <input class="green_button" type="submit" name="Sign In" value="Save Member Details">
+                                        <input class="green_button" type="submit" id="submit_data" name="Sign In" value="Save Member Details">
                                     </div>
                                 </div>
                                 <div class="clearfix"></div>

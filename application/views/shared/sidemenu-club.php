@@ -31,7 +31,7 @@
 
       <ul class="nav nav-second-level collapse">
         <li>
-          <a href="<?php echo HOST_URL .'/'. CLUB_URL . '/' . 'Members'?>">Members List</a>
+          <a href="<?php echo HOST_URL .'/'. CLUB_URL . '/' . 'Members'?>">Member's List</a>
         </li>
         <li>
           <a href="<?php echo HOST_URL .'/'. CLUB_URL . '/' . 'Members/add'?>">Add New Member</a>

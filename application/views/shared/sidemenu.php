@@ -31,8 +31,12 @@
   <a href="<?php echo HOST_URL .'/'. ADMIN_URL . '/' . 'Clubs/add'?>"><i class="fa fa-plus nav_icon"></i>Add Club</a>
 </li>
 
-<li>
+<!-- <li>
   <a href="<?php echo HOST_URL .'/'. ADMIN_URL . '/' . 'Card/create'?>"><i class="fa fa-certificate nav_icon"></i>Create ID</a>
+</li>-->
+
+<li>
+  <a href="<?php echo HOST_URL .'/'. ADMIN_URL . '/' . 'Card/batch'?>"><i class="fa fa-certificate nav_icon"></i>Batch print ID Card</a>
 </li>
 
 <li>

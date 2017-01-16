@@ -14,6 +14,7 @@
                         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                            <ul class="nav navbar-nav  navbar-left">
                              <li><button onclick="window.location.href='<?php echo $ctrlUrl;?>/members/<?php echo $menuID?>'" class="blue_button3">Refresh</button></li>
+                             <li><button onclick="window.location.href='<?php echo $ctrlUrl;?>/members_export/<?php echo $menuID?>'" class="blue_button3" style="background: #d61818;">Export</button></li>
                            </ul>
 
                           <ul class="nav navbar-nav  navbar-right">

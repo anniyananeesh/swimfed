@@ -77,6 +77,12 @@ define("CARD_SHOW_PATH",HTTP . HTTP_HOST . "/images/" . UPLOADS_FOLDER . "/cards
 define("PASSPORT_UP_PATH", ROOT_PATH . "images/" . UPLOADS_FOLDER . "/passport");
 define("PASSPORT_SHOW_PATH",HTTP . HTTP_HOST . "/images/" . UPLOADS_FOLDER . "/passport");
 
+define("SPONSOR_UP_PATH", ROOT_PATH . "images/" . UPLOADS_FOLDER . "/sponsor");
+define("SPONSOR_SHOW_PATH",HTTP . HTTP_HOST . "/images/" . UPLOADS_FOLDER . "/sponsor");
+
+define("CLUB_CERTI_UP_PATH", ROOT_PATH . "images/" . UPLOADS_FOLDER . "/certificate");
+define("CLUB_CERTI_SHOW_PATH",HTTP . HTTP_HOST . "/images/" . UPLOADS_FOLDER . "/certificate");
+
 define("MEMBER_UP_PATH", ROOT_PATH . "images/" . UPLOADS_FOLDER . "/members");
 define("MEMBER_SHOW_PATH",HTTP . HTTP_HOST . "/images/" . UPLOADS_FOLDER . "/members");
 
@@ -97,3 +103,5 @@ define("TBL_CLUBS", "tbl_clubs");
 define("TBL_MEMBERS", "tbl_members");
 define("TBL_MESSAGES", "tbl_messages");
 define("TBL_CLUB_LOGS", "tbl_club_logs");
+define("TBL_VISA_IMAGES", "tbl_members_visa_images");
+define("TBL_SPONSOR_IMAGES", "tbl_members_sponsor_images");

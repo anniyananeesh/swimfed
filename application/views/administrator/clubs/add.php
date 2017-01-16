@@ -48,13 +48,13 @@
              <label for="focusedinput" class="col-sm-4 control-label">Emirate</label>
              <div class="col-sm-5">
                <select name="emirate" id="emirate" class="form-control1">
-                  <option value="Abu Dhabi" <?php echo (isset($post) && $post['emirate'] == 'Abu Dhabi') ? 'selected' : '';?>>Abu Dhabi</option>
-                  <option value="Dubai" <?php echo (isset($post) && $post['emirate'] == 'Dubai') ? 'selected' : '';?>>Dubai</option>
-                  <option value="Sharjah" <?php echo (isset($post) && $post['emirate'] == 'Sharjah') ? 'selected' : '';?>>Sharjah</option>
-                  <option value="Ajman" <?php echo (isset($post) && $post['emirate'] == 'Ajman') ? 'selected' : '';?>>Ajman</option>
-                  <option value="Umm al-Quwain" <?php echo (isset($post) && $post['emirate'] == 'Umm al-Quwain') ? 'selected' : '';?>>Umm al-Quwain</option>
-                  <option value="Fujairah" <?php echo (isset($post) && $post['emirate'] == 'Fujairah') ? 'selected' : '';?>>Fujairah</option>
-                  <option value="Ras al-Khaimah" <?php echo (isset($post) && $post['emirate'] == 'Ras al-Khaimah') ? 'selected' : '';?>>Ras al-Khaimah</option>
+                 <option value="Abu Dhabi" <?php echo (isset($post['emirate']) && $post['emirate'] == 'Abu Dhabi') ? 'selected' : '';?>>Abu Dhabi</option>
+                 <option value="Dubai" <?php echo (isset($post['emirate']) && $post['emirate'] == 'Dubai') ? 'selected' : '';?>>Dubai</option>
+                 <option value="Al Ain" <?php echo (isset($post['emirate']) && $post['emirate'] == 'Al Ain') ? 'selected' : '';?>>Al Ain</option>
+                 <option value="Sharjah" <?php echo (isset($post['emirate']) && $post['emirate'] == 'Sharjah') ? 'selected' : '';?>>Sharjah</option>
+                 <option value="Ajman" <?php echo (isset($post['emirate']) && $post['emirate'] == 'Ajman') ? 'selected' : '';?>>Ajman</option>
+                 <option value="Ras Al Khaimah" <?php echo (isset($post['emirate']) && $post['emirate'] == 'Ras Al Khaimah') ? 'selected' : '';?>>Ras Al Khaimah</option>
+                 <option value="Fujairah" <?php echo (isset($post['emirate']) && $post['emirate'] == 'Fujairah') ? 'selected' : '';?>>Fujairah</option>
                </select>
              </div>
 

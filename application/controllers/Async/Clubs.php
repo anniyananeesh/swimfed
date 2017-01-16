@@ -411,4 +411,401 @@ class Clubs extends CI_Controller
 
     }
 
+    public function upload_member_image() {
+
+        $output_dir = MEMBER_UP_PATH .'/';
+
+        if (isset($_FILES["myfile"])) {
+
+            $ret = array();
+
+            $error = $_FILES["myfile"]["error"];
+
+            if (!is_array($_FILES["myfile"]["name"]))  {
+
+                $fileName = $_FILES["myfile"]["name"];
+
+                $Image1Name = substr(md5(uniqid(rand())), 0, 15);
+                $Image1Name = "IMG-" . $Image1Name . strrchr($fileName, ".");
+
+                move_uploaded_file($_FILES["myfile"]["tmp_name"], $output_dir . $Image1Name);
+                $ret['file'] = $Image1Name;
+
+            }  else  {
+
+                $fileCount = count($_FILES["myfile"]["name"]);
+
+                for ($i = 0; $i < $fileCount; $i++) {
+
+                    $fileName = $_FILES["myfile"]["name"][$i];
+
+                    $Image1Name = substr(md5(uniqid(rand())), 0, 15);
+                    $Image1Name = "IMG-" . $Image1Name . strrchr($fileName, ".");
+
+                    move_uploaded_file($_FILES["myfile"]["tmp_name"][$i], $output_dir . $Image1Name);
+                    $ret['file'] = $Image1Name;
+
+                }
+
+            }
+
+            echo json_encode($ret);
+
+        }
+
+    }
+
+    public function upload_other_details() {
+
+        $output_dir = PASSPORT_UP_PATH . '/';
+
+        if (isset($_FILES["myfilepassport"])) {
+
+            $ret = array();
+
+            $error = $_FILES["myfilepassport"]["error"];
+
+            if (!is_array($_FILES["myfilepassport"]["name"]))  {
+
+                $fileName = $_FILES["myfilepassport"]["name"];
+
+                $Image1Name = substr(md5(uniqid(rand())), 0, 15);
+                $Image1Name = "IMG-" . $Image1Name . strrchr($fileName, ".");
+
+                move_uploaded_file($_FILES["myfilepassport"]["tmp_name"], $output_dir . $Image1Name);
+                $ret['file'] = $Image1Name;
+
+            }  else  {
+
+                $fileCount = count($_FILES["myfilepassport"]["name"]);
+
+                for ($i = 0; $i < $fileCount; $i++) {
+
+                    $fileName = $_FILES["myfilepassport"]["name"][$i];
+
+                    $Image1Name = substr(md5(uniqid(rand())), 0, 15);
+                    $Image1Name = "IMG-" . $Image1Name . strrchr($fileName, ".");
+
+                    move_uploaded_file($_FILES["myfilepassport"]["tmp_name"][$i], $output_dir . $Image1Name);
+                    $ret['file'] = $Image1Name;
+
+                }
+
+            }
+
+            echo json_encode($ret);
+
+        }
+
+    }
+
+    public function upload_sponsor() {
+
+        $output_dir = SPONSOR_UP_PATH . '/';
+
+        if (isset($_FILES["sponsorfile"])) {
+
+            $ret = array();
+
+            $error = $_FILES["sponsorfile"]["error"];
+
+            if (!is_array($_FILES["sponsorfile"]["name"]))  {
+
+                $fileName = $_FILES["sponsorfile"]["name"];
+
+                $Image1Name = substr(md5(uniqid(rand())), 0, 15);
+                $Image1Name = "IMG-" . $Image1Name . strrchr($fileName, ".");
+
+                move_uploaded_file($_FILES["sponsorfile"]["tmp_name"], $output_dir . $Image1Name);
+                $ret['file'] = $Image1Name;
+
+            }  else  {
+
+                $fileCount = count($_FILES["sponsorfile"]["name"]);
+
+                for ($i = 0; $i < $fileCount; $i++) {
+
+                    $fileName = $_FILES["sponsorfile"]["name"][$i];
+
+                    $Image1Name = substr(md5(uniqid(rand())), 0, 15);
+                    $Image1Name = "IMG-" . $Image1Name . strrchr($fileName, ".");
+
+                    move_uploaded_file($_FILES["sponsorfile"]["tmp_name"][$i], $output_dir . $Image1Name);
+                    $ret['file'] = $Image1Name;
+
+                }
+
+            }
+
+            echo json_encode($ret);
+
+        }
+
+    }
+
+    public function upload_club_certificate() {
+
+        $output_dir = CLUB_CERTI_UP_PATH . '/';
+
+        if (isset($_FILES["clubfile"])) {
+
+            $ret = array();
+
+            $error = $_FILES["clubfile"]["error"];
+
+            if (!is_array($_FILES["clubfile"]["name"]))  {
+
+                $fileName = $_FILES["clubfile"]["name"];
+
+                $Image1Name = substr(md5(uniqid(rand())), 0, 15);
+                $Image1Name = "IMG-" . $Image1Name . strrchr($fileName, ".");
+
+                move_uploaded_file($_FILES["clubfile"]["tmp_name"], $output_dir . $Image1Name);
+                $ret['file'] = $Image1Name;
+
+            }  else  {
+
+                $fileCount = count($_FILES["clubfile"]["name"]);
+
+                for ($i = 0; $i < $fileCount; $i++) {
+
+                    $fileName = $_FILES["clubfile"]["name"][$i];
+
+                    $Image1Name = substr(md5(uniqid(rand())), 0, 15);
+                    $Image1Name = "IMG-" . $Image1Name . strrchr($fileName, ".");
+
+                    move_uploaded_file($_FILES["clubfile"]["tmp_name"][$i], $output_dir . $Image1Name);
+                    $ret['file'] = $Image1Name;
+
+                }
+
+            }
+
+            echo json_encode($ret);
+
+        }
+
+    }
+
+    public function add_member() {
+
+        $postdata = file_get_contents("php://input");
+        $request  = json_decode($postdata);
+        $this->load->model( CLUB_VIEWS . '/model_members', 'modelNameAlias');
+        $user = $this->session->userdata('data_logged');
+
+        $error = FALSE;
+
+        @$first_name = $request->first_name;
+        @$last_name = $request->last_name;
+        @$father_name = $request->father_name;
+        @$gender = $request->gender;
+        @$dob = $request->dob;
+        @$passport_no = $request->passport_no;
+        @$passport_expiry = $request->passport_expiry;
+        @$country = $request->country;
+        @$city = $request->city;
+        @$emirate = $request->emirate;
+        @$contact_no = $request->contact_no;
+        @$discipline = $request->discipline;
+        @$note = $request->note;
+        @$type = $request->type;
+
+        $memCode = $this->modelNameAlias->genMemberCode();
+
+        if (!$error) {
+
+            $data_array = array(
+                'code' => $memCode,
+                'first_name' => @$first_name,
+                'image1' =>  NULL,
+                'last_name' => @$last_name,
+                'father_name' => @$father_name,
+                'gender' => @$gender,
+                'city' => @$city,
+                'emirate' => @$emirate,
+                'country' => @$country,
+                'contact_no' => @$contact_no,
+                'club_fk' => $this->mencrypt->decode($user['user_id']),
+                'discipline' => @$discipline,
+                'note' => @$note,
+                'type' => @$type,
+                'dob' => @$dob,
+                'passport_no' => @$passport_no,
+                'passport_expiry' => @$passport_expiry,
+                'id_card1' => NULL,
+                'image_club_certificate' => NULL,
+                'created_on' => date('Y-m-d h:i:s A'),
+                'updated_on' => date('Y-m-d h:i:s A')
+            );
+
+            $id = $this->modelNameAlias->save($data_array);
+
+            if ($id) {
+
+                $data = array(
+                    'error' => FALSE,
+                    'data' => array(
+                        'key' => $id,
+                        'code' => $memCode,
+                        'name' => @$first_name . ' ' . @$last_name
+                    ),
+                    'message' => 'account created',
+                    'code' => 200
+                );
+
+            } else {
+
+                $data = array(
+                    'error' => TRUE,
+                    'message' => 'Something went wrong :(',
+                    'code' => 400
+                );
+
+            }
+
+        }
+
+        echo json_encode($data);
+
+    }
+
+    public function set_profile_image() {
+
+        $postdata = file_get_contents("php://input");
+        $request  = json_decode($postdata);
+        $this->load->model( CLUB_VIEWS . '/model_members', 'modelNameAlias');
+
+        @$id = $request->id;
+        @$file = $request->file;
+
+        $save = array(
+           'image1' => @$file
+        );
+
+        $id = $this->modelNameAlias->save($save, array('id' => @$id));
+
+        if ($id) {
+
+            $data = array(
+                'error' => FALSE,
+                'message' => 'account updated'
+            );
+
+        } else {
+
+            $data = array(
+                'error' => TRUE,
+                'message' => 'Something went wrong :('
+            );
+        }
+
+        echo json_encode($data);
+
+    }
+
+    public function set_visa_image() {
+
+        $postdata = file_get_contents("php://input");
+        $request  = json_decode($postdata);
+        $this->load->model( CLUB_VIEWS . '/model_visa_images', 'modelNameAlias');
+
+        @$id = $request->id;
+        @$file = $request->file;
+
+        $save = array(
+           'member_fk' => @$id,
+           'image_url' => @$file
+        );
+
+        $id = $this->modelNameAlias->save($save);
+
+        if ($id) {
+
+            $data = array(
+                'error' => FALSE,
+                'message' => 'account updated'
+            );
+
+        } else {
+
+            $data = array(
+                'error' => TRUE,
+                'message' => 'Something went wrong :('
+            );
+        }
+
+        echo json_encode($data);
+
+    }
+
+    public function set_sponsor_details() {
+
+        $postdata = file_get_contents("php://input");
+        $request  = json_decode($postdata);
+        $this->load->model( CLUB_VIEWS . '/model_sponsor_images', 'modelNameAlias');
+
+        @$id = $request->id;
+        @$file = $request->file;
+
+        $save = array(
+           'member_fk' => @$id,
+           'image_url' => @$file
+        );
+
+        $id = $this->modelNameAlias->save($save);
+
+        if ($id) {
+
+            $data = array(
+                'error' => FALSE,
+                'message' => 'account updated'
+            );
+
+        } else {
+
+            $data = array(
+                'error' => TRUE,
+                'message' => 'Something went wrong :('
+            );
+        }
+
+        echo json_encode($data);
+
+    }
+
+    public function set_club_certificate() {
+
+        $postdata = file_get_contents("php://input");
+        $request  = json_decode($postdata);
+        $this->load->model( CLUB_VIEWS . '/model_members', 'modelNameAlias');
+
+        @$id = $request->id;
+        @$file = $request->file;
+
+        $save = array(
+           'image_club_certificate' => @$file
+        );
+
+        $id = $this->modelNameAlias->save($save, array('id' => @$id));
+
+        if ($id) {
+
+            $data = array(
+                'error' => FALSE,
+                'message' => 'account updated'
+            );
+
+        } else {
+
+            $data = array(
+                'error' => TRUE,
+                'message' => 'Something went wrong :('
+            );
+        }
+
+        echo json_encode($data);
+
+    }
+
 }

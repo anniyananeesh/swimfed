@@ -908,9 +908,9 @@ h4.title {
 }
 
 .member_img img{
-	width:200px;
+	width:90px;
 	height:auto;
-	padding:15px ;
+	/*padding:15px ;*/
 }
 .idcard{
 	width:100%;
@@ -4222,4 +4222,35 @@ h4.title3 {
    padding-top: 80px;
    font-size: 30px;
    color: #ddd;
+}
+
+.image_preview , .image-holder{
+   display: block;
+   position: relative;
+   width: auto;
+   height: auto;
+   margin-top: 5px;
+}
+
+.image-holder {
+  display: inline-block;
+}
+
+.image_preview .preview-image-holder {
+   display: inline-block;
+   position: relative;
+   width: 120px;
+   height: auto;
+   padding-top: 80%;
+   background-color: #ddd;
+   margin-right: 5px;
+   margin-bottom: 5px;
+}
+
+.image_preview .image-holder i {
+  position: absolute;
+  display: block;
+  top: 5px;
+  right: 10px;
+  font-size: 20px;
 }

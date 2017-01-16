@@ -16,7 +16,7 @@ class Card extends MY_Controller {
         $this->data['menuActive'] = 'card';
         $this->data['ctrlUrl'] = HOST_URL . "/" . ADMIN_URL . "/Card";
         $this->load->model( ADMIN_VIEWS . '/model_clubs', 'modelNameAlias');
-
+        $this->load->model( ADMIN_VIEWS . '/model_members', 'modelMemberAlias');
         $this->className = 'Card';
 
     }
@@ -210,6 +210,134 @@ class Card extends MY_Controller {
             return $age;
         }else{
             return 0;
+        }
+
+    }
+
+    public function batch() {
+
+          $this->data['content'] = $this->viewFolder . '/batch';
+
+          $this->data['q'] = (isset($_GET) && $_GET['q'] != "") ? $_GET['q'] : "";
+
+          $join = array(
+             array('table' => TBL_CLUBS, 'condition' => TBL_CLUBS . '.id = ' . TBL_MEMBERS . '.club_fk', 'join' => 'LEFT')
+          );
+
+          $where = array(TBL_MEMBERS . '.is_active' => 'Y');
+
+          if(isset($_GET) && $_GET['q'] != "") {
+              $where[TBL_MEMBERS . '.first_name LIKE'] = $_GET['q'] . '%';
+          }
+
+          if(isset($_GET) && $_GET['type'] != "all" && $_GET['type'] != NULL) {
+              $where[TBL_MEMBERS . '.current_status'] = $_GET['type'];
+          }
+
+          $fields = array(TBL_MEMBERS . '.*', TBL_CLUBS . '.name');
+
+          $this->data['records'] = $this->modelMemberAlias->fetchFields($fields, $where, array(), null, null, $join);
+          $this->load->view($this->layout, $this->data);
+
+    }
+
+    public function batch_print() {
+
+        if(isset($_POST) && count($_POST['array_id']) > 0) {
+
+            $join = array(
+                array('table' => TBL_CLUBS, 'condition' => TBL_CLUBS . '.id = ' . TBL_MEMBERS . '.club_fk', 'join' => 'LEFT')
+            );
+
+            $fields = array(
+                TBL_CLUBS . '.name as club_name',
+                TBL_MEMBERS . '.first_name',
+                TBL_MEMBERS . '.last_name',
+                TBL_MEMBERS . '.father_name',
+                TBL_MEMBERS . '.dob',
+                TBL_MEMBERS . '.type',
+                TBL_MEMBERS . '.code',
+                TBL_MEMBERS . '.is_active',
+                TBL_MEMBERS . '.club_fk',
+                TBL_MEMBERS . '.image1',
+                TBL_MEMBERS . '.id'
+            );
+
+            //Keep uploaded photos into this array
+            $cardImageCreated = array();
+
+            foreach ($_POST['array_id'] as $key => $value) {
+
+                $member = $this->modelMemberAlias->fetchRowFields($fields, array(TBL_MEMBERS . '.id' => $this->mencrypt->decode($value)), array(), $join);
+
+                if($member->is_active == 'Y') {
+
+                    $data_array = array(
+                        'first_name' => $member->first_name,
+                        'last_name' => $member->last_name,
+                        'father_name' => $member->father_name,
+                        'dob' => $member->dob,
+                        'type' => $member->type,
+                        'age' => $this->ageCalculator(date('Y-m-d', strtotime($member->dob))), // Dob shoul be in format mm/dd/YYYY
+                        'club_name' => $member->club_name,
+                        'code' => $member->code,
+                    );
+
+                    include_once(APPPATH . "/libraries/Image.php");
+
+                    $image = new Image(false, MEMBER_UP_PATH);
+                    $this->data['card_image'] = $image->drawIDCard( $data_array, MEMBER_UP_PATH . '/' . $member->image1, false);
+
+                    $data_member_array = array(
+                        'id_card1' => $this->data['card_image']
+                    );
+
+                    $where = array(
+                        'id' => $member->id
+                    );
+
+                    $this->modelMemberAlias->save( $data_member_array, $where);
+
+                    //Move the image to cards folder
+                    rename(MEMBER_UP_PATH . '/' . $this->data['card_image'], CARD_UP_PATH . '/' . $this->data['card_image']);
+
+                    //Push the card created to a temp array
+                    array_push($cardImageCreated, array('file' => CARD_UP_PATH . '/' . $this->data['card_image'], 'name' => 'IDCard_' . $member->code .'.png'));
+
+                }
+
+            }
+
+            //Create a zip file and download the images
+            $zip = new ZipArchive(); // Load zip library
+            $zip_temp_name = 'IDCards_' . time(); // Zip name
+            $zip_name = $zip_temp_name . ".zip";
+
+            if($zip->open($zip_name, ZIPARCHIVE::CREATE)!==TRUE) {
+
+                $this->session->set_flashdata('error_message', 'Sorry zip file creation failed!');
+                redirect($this->data['ctrlUrl'] . '/batch');
+            }
+
+            foreach($cardImageCreated as $file) {
+                if(file_exists($file['file'])) { $zip->addFile($file['file'], $zip_temp_name . '/' . $file['name']); } // Adding files into zip
+            }
+
+            $zip->close();
+
+            if(file_exists($zip_name)) {
+                // push to download the zip
+                header('Content-type: application/zip');
+                header('Content-Disposition: attachment; filename="'.$zip_name.'"');
+                readfile($zip_name);
+                // remove zip file is exists in temp path
+                unlink($zip_name);
+            }
+
+        } else {
+
+            $this->session->set_flashdata('error_message', ' No member chosen');
+            redirect($this->data['ctrlUrl'] . '/batch');
         }
 
     }

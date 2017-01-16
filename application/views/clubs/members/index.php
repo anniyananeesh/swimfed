@@ -76,7 +76,13 @@
                                     <td><?php echo date('d-m-Y <br> h.i a', strtotime($value->updated_on))?></td>
                                     <td><?php echo date('d-m-Y <br> h.i a', strtotime($value->created_on))?></td>
                                     <td><?php echo ($value->is_active == 'Y') ? 'Active' : 'Pending'?></td>
-                                    <td><a href="<?php echo HOST_URL . '/' . CLUB_URL . '/Members'?>/edit/<?php echo $this->mencrypt->encode($value->id)?>" class="blue_button3">Edit</a></td>
+                                    <td>
+                                      <?php if($value->is_active == 'N'):?>
+                                          <a href="<?php echo HOST_URL . '/' . CLUB_URL . '/Members'?>/edit/<?php echo $this->mencrypt->encode($value->id)?>" class="blue_button3">Edit</a>
+                                      <?php else:?>
+                                          <a href="<?php echo HOST_URL . '/' . CLUB_URL . '/Members'?>/view/<?php echo $this->mencrypt->encode($value->id)?>" class="blue_button3">View</a>
+                                      <?php endif;?>
+                                    </td>
                                 </tr>
                             <?php endforeach;?>
 
