@@ -70,11 +70,11 @@
               showDelete: true,
               showError: true,
               maxFileCount: <?php echo (3 - count($passport_visa_images))?>,
-              allowedTypes: "jpg,png",
+              allowedTypes: "pdf",
               multiple: true,
               autoSubmit: false,
               uploadStr: '<i class="fa fa-paperclip"></i> Upload Passport pages & Emirates ID!',
-              acceptFiles: 'image/*',
+              acceptFiles: '.pdf',
               maxFileSize: 3000*1024,
               statusBarWidth: 160,
               onSelect:function(files) {
@@ -117,11 +117,11 @@
               statusBarWidth: 160,
               showError: true,
               maxFileCount: <?php echo (4 - count($sponsor_images))?>,
-              allowedTypes: "jpg,png",
+              allowedTypes: "pdf",
               multiple: true,
               autoSubmit: false,
               uploadStr: '<i class="fa fa-paperclip"></i> Upload Sponsor details!',
-              acceptFiles: 'image/*',
+              acceptFiles: '.pdf',
               maxFileSize: 3000*1024,
               onSelect:function(files) {
                   $("#upload-container3").fadeIn(350);
@@ -163,11 +163,11 @@
               showDelete: true,
               showError: true,
               maxFileCount: 1,
-              allowedTypes: "jpg,png,pdf",
+              allowedTypes: "pdf",
               multiple: true,
               autoSubmit: false,
               uploadStr: '<i class="fa fa-paperclip"></i> Upload Club certificate!',
-              acceptFiles: "image/*, .pdf",
+              acceptFiles: ".pdf",
               maxFileSize: 3000*1024,
               onSelect:function(files) {
                   $("#upload-container4").fadeIn(350);
@@ -656,7 +656,7 @@
                                             <?php if(count($passport_visa_images) < 3):?>
                                               <div id="passportDetailsUploadBtn" class="btn btn-default btn-file blue_button2" style="padding: 0px;"><i class="fa fa-paperclip"></i> Upload Passport & Emirates ID!</div>
                                               <div class="clearfix"></div>
-                                              <p class="help-block">Upload Passport & Emirates ID | Max. 3Mb</p>
+                                              <p class="help-block">Upload Passport & Emirates ID | Max. 3Mb | PDF Only</p>
                                             <?php endif;?>
 
                                             <div class="upload-container mt-sm" id="upload-container2"></div>
@@ -664,7 +664,9 @@
                                                   <div class="image_preview">
                                                   <?php foreach ($passport_visa_images as $key => $value):?>
                                                       <div class="image-holder">
-                                                        <a target="_blank" class="preview-image-holder" href="<?php echo $passportShowPath?>/<?php echo $value->image_url?>" style="background: url('<?php echo $passportShowPath?>/<?php echo $value->image_url?>') no-repeat; background-size: cover;"></a>
+                                                        <a target="_blank" class="preview-image-holder" href="<?php echo $passportShowPath?>/<?php echo $value->image_url?>">
+                                                            View Pdf
+                                                        </a>
                                                         <i class="fa fa-times-circle" aria-hidden="true" onclick="javascript:if(delConfirmation()==true){DeleteVisaFile('<?php echo $value->image_url?>', 'image_url', <?php echo $record->id?>)}"></i>
                                                       </div>
                                                   <?php endforeach;?>
@@ -683,7 +685,7 @@
                                             <?php if(count($sponsor_images) < 4):?>
                                                 <div id="sponsorUploadBtn" class="btn btn-default btn-file blue_button2" style="padding: 0px;"><i class="fa fa-paperclip"></i> Upload sponsor details!</div>
                                                 <div class="clearfix"></div>
-                                                <p class="help-block">Upload sponsor details | Max. 3Mb</p>
+                                                <p class="help-block">Upload sponsor details | Max. 3Mb | PDF Only</p>
                                             <?php endif;?>
 
                                             <div class="upload-container mt-sm" id="upload-container3"></div>
@@ -692,7 +694,9 @@
                                                   <div class="image_preview">
                                                   <?php foreach ($sponsor_images as $key => $value):?>
                                                       <div class="image-holder">
-                                                        <a target="_blank" class="preview-image-holder" href="<?php echo $sponsorShowPath?>/<?php echo $value->image_url?>" style="background: url('<?php echo $sponsorShowPath?>/<?php echo $value->image_url?>') no-repeat; background-size: cover;"></a>
+                                                        <a target="_blank" class="preview-image-holder" href="<?php echo $sponsorShowPath?>/<?php echo $value->image_url?>">
+                                                           View Pdf
+                                                        </a>
                                                         <i class="fa fa-times-circle" aria-hidden="true" onclick="javascript:if(delConfirmation()==true){DeleteSponsorFile('<?php echo $value->image_url?>', 'image_url', <?php echo $record->id?>)}"></i>
                                                       </div>
                                                   <?php endforeach;?>
@@ -711,14 +715,16 @@
                                             <?php if($record->image_club_certificate == NULL):?>
                                                 <div id="clubCertificateUploadBtn" class="btn btn-default btn-file blue_button2" style="padding: 0px;"><i class="fa fa-paperclip"></i> Upload Club certificate!</div>
                                                 <div class="clearfix"></div>
-                                                <p class="help-block">Upload image / pdf | Max. 1Mb</p>
+                                                <p class="help-block">Upload pdf | Max. 1Mb | PDF Only</p>
                                             <?php endif;?>
 
                                             <div class="upload-container mt-sm" id="upload-container4"></div>
                                             <?php if($record->image_club_certificate != NULL):?>
                                               <div class="image_preview">
                                                   <div class="image-holder">
-                                                    <a target="_blank" class="preview-image-holder" href="<?php echo $clubCertiShowPath?>/<?php echo $record->image_club_certificate?>" style="background: url('<?php echo $clubCertiShowPath?>/<?php echo $record->image_club_certificate?>') no-repeat; background-size: cover;"></a>
+                                                    <a target="_blank" class="preview-image-holder" href="<?php echo $clubCertiShowPath?>/<?php echo $record->image_club_certificate?>">
+                                                       View PDF
+                                                    </a>
                                                     <i class="fa fa-times-circle" aria-hidden="true" onclick="javascript:if(delConfirmation()==true){DeleteUserFile('<?php echo $record->image_club_certificate?>', 'image_club_certificate', <?php echo $record->id?>)}"></i>
                                                   </div>
                                               </div>

@@ -4245,6 +4245,9 @@ h4.title3 {
    background-color: #ddd;
    margin-right: 5px;
    margin-bottom: 5px;
+   text-align: center;
+   padding-bottom: 8px;
+font-size: 14px;
 }
 
 .image_preview .image-holder i {

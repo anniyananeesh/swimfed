@@ -70,11 +70,11 @@
               showDelete: true,
               showError: true,
               maxFileCount: 3,
-              allowedTypes: "jpg,png",
+              allowedTypes: "pdf",
               multiple: true,
               autoSubmit: false,
               uploadStr: '<i class="fa fa-paperclip"></i> Upload Passport pages & Emirates ID!',
-              acceptFiles: 'image/*',
+              acceptFiles: '.pdf',
               maxFileSize: 3000*1024,
               statusBarWidth: 160,
               onSelect:function(files) {
@@ -117,11 +117,11 @@
               statusBarWidth: 160,
               showError: true,
               maxFileCount: 4,
-              allowedTypes: "jpg,png",
+              allowedTypes: "pdf",
               multiple: true,
               autoSubmit: false,
               uploadStr: '<i class="fa fa-paperclip"></i> Upload Sponsor details!',
-              acceptFiles: 'image/*',
+              acceptFiles: '.pdf',
               maxFileSize: 3000*1024,
               onSelect:function(files) {
                   $("#upload-container3").fadeIn(350);
@@ -163,11 +163,11 @@
               showDelete: true,
               showError: true,
               maxFileCount: 1,
-              allowedTypes: "jpg,png,pdf",
+              allowedTypes: "pdf",
               multiple: true,
               autoSubmit: false,
               uploadStr: '<i class="fa fa-paperclip"></i> Upload Club certificate!',
-              acceptFiles: "image/*, .pdf",
+              acceptFiles: ".pdf",
               maxFileSize: 3000*1024,
               onSelect:function(files) {
                   $("#upload-container4").fadeIn(350);
@@ -640,7 +640,7 @@
 
                                             <div id="passportDetailsUploadBtn" class="btn btn-default btn-file blue_button2" style="padding: 0px;"><i class="fa fa-paperclip"></i> Upload Passport & Emirates ID!</div>
                                             <div class="clearfix"></div>
-                                            <p class="help-block">Upload Passport & Emirates ID | Max. 3Mb</p>
+                                            <p class="help-block">Upload Passport & Emirates ID | Max. 3Mb | PDF Only</p>
 
                                             <div class="upload-container mt-sm" id="upload-container2"></div>
                                         </div>
@@ -653,7 +653,7 @@
 
                                             <div id="sponsorUploadBtn" class="btn btn-default btn-file blue_button2" style="padding: 0px;"><i class="fa fa-paperclip"></i> Upload Sponsor details !</div>
                                             <div class="clearfix"></div>
-                                            <p class="help-block">Upload sponsor details | Max. 3Mb</p>
+                                            <p class="help-block">Upload sponsor details | Max. 3Mb | PDF Only</p>
 
                                             <div class="upload-container mt-sm" id="upload-container3"></div>
                                         </div>
@@ -666,7 +666,7 @@
 
                                             <div id="clubCertificateUploadBtn" class="btn btn-default btn-file blue_button2" style="padding: 0px;"><i class="fa fa-paperclip"></i> Upload Club certificate!</div>
                                             <div class="clearfix"></div>
-                                            <p class="help-block">Upload image / pdf | Max. 1Mb</p>
+                                            <p class="help-block">Upload certificate pdf | Max. 1Mb | PDF Only</p>
 
                                             <div class="upload-container mt-sm" id="upload-container4"></div>
                                         </div>

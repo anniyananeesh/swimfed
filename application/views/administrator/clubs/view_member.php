@@ -176,7 +176,9 @@
                                         <div class="image_preview">
                                         <?php foreach ($passport_visa_images as $key => $value):?>
                                           <div class="image-holder">
-                                            <a target="_blank" class="preview-image-holder" href="<?php echo $passportShowPath?>/<?php echo $value->image_url?>" style="background: url('<?php echo $passportShowPath?>/<?php echo $value->image_url?>') no-repeat; background-size: cover;"></a>
+                                            <a target="_blank" class="preview-image-holder" href="<?php echo $passportShowPath?>/<?php echo $value->image_url?>">
+                                                 View PDF
+                                            </a>
                                            </div>
                                         <?php endforeach;?>
                                         </div>
@@ -193,7 +195,9 @@
                                         <div class="image_preview">
                                         <?php foreach ($sponsor_images as $key => $value):?>
                                           <div class="image-holder">
-                                            <a target="_blank" class="preview-image-holder" href="<?php echo $sponsorShowPath?>/<?php echo $value->image_url?>" style="background: url('<?php echo $sponsorShowPath?>/<?php echo $value->image_url?>') no-repeat; background-size: cover;"></a>
+                                            <a target="_blank" class="preview-image-holder" href="<?php echo $sponsorShowPath?>/<?php echo $value->image_url?>">
+                                              View PDF
+                                            </a>
                                            </div>
                                         <?php endforeach;?>
                                         </div>
@@ -210,7 +214,9 @@
 
                                     <div class="image_preview">
                                         <div class="image-holder">
-                                          <a target="_blank" class="preview-image-holder" href="<?php echo $clubCertiShowPath?>/<?php echo $record->image_club_certificate?>" style="background: url('<?php echo $clubCertiShowPath?>/<?php echo $record->image_club_certificate?>') no-repeat; background-size: cover;"></a>
+                                          <a target="_blank" class="preview-image-holder" href="<?php echo $clubCertiShowPath?>/<?php echo $record->image_club_certificate?>">
+                                             View PDF
+                                          </a>
                                          </div>
                                     </div>
                                   <?php else:?>

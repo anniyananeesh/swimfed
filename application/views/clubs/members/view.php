@@ -147,11 +147,16 @@
                             <div class="member_img">
                               <h3 style="margin-bottom: 10px;">Passport and visa images</h3>
                               <?php if($passport_visa_images):?>
+                                    <div class="image_preview">
                                     <?php foreach ($passport_visa_images as $key => $value):?>
-                                        <img src="<?php echo $passportShowPath?>/<?php echo $value->image_url?>" alt="">
+                                        <div class="image-holder">
+                                          <a target="_blank" class="preview-image-holder" href="<?php echo $passportShowPath?>/<?php echo $value->image_url?>">
+                                               View PDF
+                                          </a>
+                                          <i class="fa fa-times-circle" aria-hidden="true" onclick="javascript:if(delConfirmation()==true){DeleteVisaFile('<?php echo $value->image_url?>', 'image_url', <?php echo $record->id?>)}"></i>
+                                        </div>
                                     <?php endforeach;?>
-                              <?php else:?>
-                                  <img src="<?php echo ADMIN_IMG_PATH?>/passport.jpg" alt="">
+                                    </div>
                               <?php endif;?>
                             </div>
                         </div>
@@ -160,11 +165,16 @@
                             <div class="member_img">
                               <h3 style="margin-bottom: 10px;">Sponsor details</h3>
                               <?php if($sponsor_images):?>
-                                    <?php foreach ($sponsor_images as $key => $value):?>
-                                        <img src="<?php echo $sponsorShowPath?>/<?php echo $value->image_url?>" alt="">
-                                    <?php endforeach;?>
-                              <?php else:?>
-                                  <img src="<?php echo ADMIN_IMG_PATH?>/passport.jpg" alt="">
+                                <div class="image_preview">
+                                <?php foreach ($sponsor_images as $key => $value):?>
+                                    <div class="image-holder">
+                                      <a target="_blank" class="preview-image-holder" href="<?php echo $sponsorShowPath?>/<?php echo $value->image_url?>">
+                                        View PDF
+                                      </a>
+                                      <i class="fa fa-times-circle" aria-hidden="true" onclick="javascript:if(delConfirmation()==true){DeleteSponsorFile('<?php echo $value->image_url?>', 'image_url', <?php echo $record->id?>)}"></i>
+                                    </div>
+                                <?php endforeach;?>
+                                </div>
                               <?php endif;?>
                             </div>
                         </div>
@@ -173,9 +183,14 @@
                             <div class="member_img">
                               <h3 style="margin-bottom: 10px;">Club Certificate</h3>
                               <?php if($record->image_club_certificate != NULL):?>
-                                <img src="<?php echo $clubCertiShowPath?>/<?php echo $record->image_club_certificate?>" alt="">
-                              <?php else:?>
-                                <img src="<?php echo ADMIN_IMG_PATH?>/id_icon.jpg" alt="">
+                                <div class="image_preview">
+                                    <div class="image-holder">
+                                      <a target="_blank" class="preview-image-holder" href="<?php echo $clubCertiShowPath?>/<?php echo $record->image_club_certificate?>">
+                                         View PDF
+                                      </a>
+                                      <i class="fa fa-times-circle" aria-hidden="true" onclick="javascript:if(delConfirmation()==true){DeleteUserFile('<?php echo $record->image_club_certificate?>', 'image_club_certificate', <?php echo $record->id?>)}"></i>
+                                    </div>
+                                </div>
                               <?php endif;?>
                             </div>
                         </div>
