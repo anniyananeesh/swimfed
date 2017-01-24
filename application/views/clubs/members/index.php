@@ -16,7 +16,7 @@
                              <li><button onclick="window.location.href='<?php echo $ctrlUrl;?>'" class="blue_button3">Refresh</button></li>
                            </ul>
 
-                          <ul class="nav navbar-nav  navbar-right">
+                          <!-- <ul class="nav navbar-nav  navbar-right">
                             <li class="dropdown">
                               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Filter <span class="caret"></span></a>
                               <ul class="dropdown-menu">
@@ -25,7 +25,7 @@
                                 <li><a href="<?php echo $ctrlUrl?>?q=<?php echo $q?>&type=abtoyac">ABTOYAC</a></li>
                               </ul>
                             </li>
-                          </ul>
+                          </ul>-->
 
                           <form class="navbar-form navbar-right" method="get" enctype="application/x-www-form-urlencoded">
                             <div class="form-group">

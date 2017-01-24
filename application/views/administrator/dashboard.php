@@ -11,12 +11,12 @@
                 <a href="<?php echo HOST_URL . '/' . ADMIN_URL?>/Clubs/add"><button class="green_button5">ADD CLUB</button></a>
                 </div>
                 <div class="col-sm-6 text-center">
-                <a href="<?php echo HOST_URL . '/' . ADMIN_URL?>/Card/create"><button class="green_button5">CREATE ID</button></a>
+                <a href="<?php echo HOST_URL . '/' . ADMIN_URL?>/Card/autogenerate"><button class="green_button5">CREATE ID</button></a>
                 </div>
                 <div class="col-sm-6 text-center">
                 <a href="<?php echo HOST_URL . '/' . ADMIN_URL?>/Inbox">
                   <button class="green_button5">MESSAGES
- 
+
                     <?php if($unreadMessages > 0):?>
                       <span class="badge"><?php echo $unreadMessages;?></span>
                     <?php endif;?>

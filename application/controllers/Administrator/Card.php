@@ -146,6 +146,7 @@ class Card extends MY_Controller {
                       TBL_MEMBERS . '.is_active',
                       TBL_MEMBERS . '.club_fk',
                       TBL_MEMBERS . '.image1',
+                      TBL_MEMBERS . '.country',
                       TBL_MEMBERS . '.id'
                   );
 
@@ -161,6 +162,7 @@ class Card extends MY_Controller {
                           'type' => $member->type,
                           'age' => $this->ageCalculator(date('Y-m-d', strtotime($member->dob))), // Dob shoul be in format mm/dd/YYYY
                           'club_name' => $member->club_name,
+                          'country' => $member->country,
                           'code' => $member->code,
                       );
 
@@ -204,9 +206,10 @@ class Card extends MY_Controller {
     private function ageCalculator($dob){
 
         if(!empty($dob)){
-            $birthdate = new DateTime($dob);
-            $today   = new DateTime('today');
-            $age = $birthdate->diff($today)->y;
+          
+            $birthdate = date('Y', strtotime($dob));
+            $today = date('Y');
+            $age = $today - $birthdate;
             return $age;
         }else{
             return 0;
@@ -260,6 +263,7 @@ class Card extends MY_Controller {
                 TBL_MEMBERS . '.is_active',
                 TBL_MEMBERS . '.club_fk',
                 TBL_MEMBERS . '.image1',
+                TBL_MEMBERS . '.country',
                 TBL_MEMBERS . '.id'
             );
 
@@ -280,6 +284,7 @@ class Card extends MY_Controller {
                         'type' => $member->type,
                         'age' => $this->ageCalculator(date('Y-m-d', strtotime($member->dob))), // Dob shoul be in format mm/dd/YYYY
                         'club_name' => $member->club_name,
+                        'country' => $member->country,
                         'code' => $member->code,
                     );
 

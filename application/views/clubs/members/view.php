@@ -153,8 +153,7 @@
                                           <a target="_blank" class="preview-image-holder" href="<?php echo $passportShowPath?>/<?php echo $value->image_url?>">
                                                View PDF
                                           </a>
-                                          <i class="fa fa-times-circle" aria-hidden="true" onclick="javascript:if(delConfirmation()==true){DeleteVisaFile('<?php echo $value->image_url?>', 'image_url', <?php echo $record->id?>)}"></i>
-                                        </div>
+                                         </div>
                                     <?php endforeach;?>
                                     </div>
                               <?php endif;?>
@@ -171,8 +170,7 @@
                                       <a target="_blank" class="preview-image-holder" href="<?php echo $sponsorShowPath?>/<?php echo $value->image_url?>">
                                         View PDF
                                       </a>
-                                      <i class="fa fa-times-circle" aria-hidden="true" onclick="javascript:if(delConfirmation()==true){DeleteSponsorFile('<?php echo $value->image_url?>', 'image_url', <?php echo $record->id?>)}"></i>
-                                    </div>
+                                     </div>
                                 <?php endforeach;?>
                                 </div>
                               <?php endif;?>
@@ -188,8 +186,7 @@
                                       <a target="_blank" class="preview-image-holder" href="<?php echo $clubCertiShowPath?>/<?php echo $record->image_club_certificate?>">
                                          View PDF
                                       </a>
-                                      <i class="fa fa-times-circle" aria-hidden="true" onclick="javascript:if(delConfirmation()==true){DeleteUserFile('<?php echo $record->image_club_certificate?>', 'image_club_certificate', <?php echo $record->id?>)}"></i>
-                                    </div>
+                                     </div>
                                 </div>
                               <?php endif;?>
                             </div>
