@@ -267,7 +267,7 @@
                                     <div class="form-group">
                                         <label for="focusedinput" class="col-sm-4 control-label">Date of Birth</label>
                                         <div class="col-sm-6">
-                                            <input type="text" class="form-control1" id="dob" name="dob" placeholder="MM/DD/YY" value="<?php echo ($post['dob'] != NULL && $post['dob'] != '') ? $post['dob'] : '';?>" >
+                                            <input type="text" class="form-control1" id="dob" name="dob" placeholder="DD/MM/YY" value="<?php echo ($post['dob'] != NULL && $post['dob'] != '') ? $post['dob'] : '';?>" >
                                             <?php if(form_error('dob')):?>
                                                 <div class="error" ><?php echo form_error('dob');?></div>
                                             <?php endif;?>

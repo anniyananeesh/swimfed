@@ -40,7 +40,7 @@
 
           $messages = $CI->modelMessagesAlias->fetchFields($fields, array( TBL_MESSAGES . '.label' => 'Inbox', TBL_MESSAGES . '.to_fk' => 0, TBL_MESSAGES.'.is_read' => 'N'), array( TBL_MESSAGES.'.created_on' => 'DESC'), null, null, $join);
 
-          $fields_requests = array( 
+          $fields_requests = array(
               TBL_MEMBERS . '.first_name',
               TBL_MEMBERS . '.last_name',
               TBL_MEMBERS . '.created_on',
@@ -148,6 +148,7 @@
           </a>
           <ul class="dropdown-menu drp-mnu">
             <li> <a href="<?php echo HOST_URL . '/' . ADMIN_URL . '/'?>Dashboard"><i class="fa fa-home"></i> Dashboard</a> </li>
+            <li> <a href="<?php echo HOST_URL . '/' . ADMIN_URL . '/'?>Settings"><i class="fa fa-gear"></i> Change Password</a> </li>
             <li> <a href="<?php echo HOST_URL . '/' . ADMIN_URL . '/'?>Logout"><i class="fa fa-sign-out"></i> Logout</a> </li>
           </ul>
         </li>

@@ -105,3 +105,5 @@ define("TBL_MESSAGES", "tbl_messages");
 define("TBL_CLUB_LOGS", "tbl_club_logs");
 define("TBL_VISA_IMAGES", "tbl_members_visa_images");
 define("TBL_SPONSOR_IMAGES", "tbl_members_sponsor_images");
+
+define("TBL_TEMP_MEMBERS", "tbl_temp_members");

@@ -137,6 +137,7 @@ class Card extends MY_Controller {
 
                   $fields = array(
                       TBL_CLUBS . '.name as club_name',
+                      TBL_CLUBS . '.email',
                       TBL_MEMBERS . '.first_name',
                       TBL_MEMBERS . '.last_name',
                       TBL_MEMBERS . '.father_name',
@@ -160,7 +161,7 @@ class Card extends MY_Controller {
                           'father_name' => $member->father_name,
                           'dob' => $member->dob,
                           'type' => $member->type,
-                          'age' => $this->ageCalculator(date('Y-m-d', strtotime($member->dob))), // Dob shoul be in format mm/dd/YYYY
+                          'age' => $this->ageCalculator($member->dob), // Dob shoul be in format mm/dd/YYYY
                           'club_name' => $member->club_name,
                           'country' => $member->country,
                           'code' => $member->code,
@@ -170,6 +171,7 @@ class Card extends MY_Controller {
 
                       $image = new Image(false, MEMBER_UP_PATH);
                       $this->data['card_image'] = $image->drawIDCard( $data_array, MEMBER_UP_PATH . '/' . $member->image1, false);
+                      $this->data['email'] = $member->email;
 
                       $data_member_array = array(
                           'id_card1' => $this->data['card_image']
@@ -206,8 +208,11 @@ class Card extends MY_Controller {
     private function ageCalculator($dob){
 
         if(!empty($dob)){
-          
-            $birthdate = date('Y', strtotime($dob));
+
+            $dob = explode('/', $dob);
+            $dobFinal = $dob[1] . '/' . $dob[0] . '/' . $dob[2];
+
+            $birthdate = date('Y', strtotime($dobFinal));
             $today = date('Y');
             $age = $today - $birthdate;
             return $age;
@@ -220,6 +225,13 @@ class Card extends MY_Controller {
     public function batch() {
 
           $this->data['content'] = $this->viewFolder . '/batch';
+
+          $clubFields = array(
+              'id',
+              'name'
+          );
+
+          $this->data['clubs'] = $this->modelNameAlias->fetchFields($clubFields);
 
           $this->data['q'] = (isset($_GET) && $_GET['q'] != "") ? $_GET['q'] : "";
 
@@ -234,7 +246,12 @@ class Card extends MY_Controller {
           }
 
           if(isset($_GET) && $_GET['type'] != "all" && $_GET['type'] != NULL) {
-              $where[TBL_MEMBERS . '.current_status'] = $_GET['type'];
+              $status = ($_GET['type'] == 'active') ? 'Y' : 'N' ;
+              $where[TBL_MEMBERS . '.is_active'] = $status;
+          }
+
+          if(isset($_GET) && $_GET['club'] != "") {
+              $where[TBL_MEMBERS . '.club_fk'] = $_GET['club'];
           }
 
           $fields = array(TBL_MEMBERS . '.*', TBL_CLUBS . '.name');
@@ -282,7 +299,7 @@ class Card extends MY_Controller {
                         'father_name' => $member->father_name,
                         'dob' => $member->dob,
                         'type' => $member->type,
-                        'age' => $this->ageCalculator(date('Y-m-d', strtotime($member->dob))), // Dob shoul be in format mm/dd/YYYY
+                        'age' => $this->ageCalculator($member->dob), // Dob shoul be in format mm/dd/YYYY
                         'club_name' => $member->club_name,
                         'country' => $member->country,
                         'code' => $member->code,

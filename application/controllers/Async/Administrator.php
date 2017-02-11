@@ -368,22 +368,31 @@ class Administrator extends CI_Controller
 
             if(isset($_POST['image']) && isset($_POST['email'])) {
 
-                $this->load->library('email');
-                $this->config->load('email',true);
-                $this->email->from(INFO_EMAIL);
-                $this->email->to($_POST['email']);
-                $this->email->subject(SITE_NAME.' - Your Club ID Card is here');
-
                 include_once(MISC_PATH."/emails.php");
                 $message = $id_card_email;
 
-                $this->email->attach(CARD_UP_PATH . '/' . $_POST['image']);
-                $this->email->message($message);
+                $this->load->library('My_PHPMailer');
+                $mail = new PHPMailer();
+                $mail->IsSMTP();
+                $mail->isHTML(true);
+                $mail->SMTPAuth   = true;
+                $mail->SMTPSecure = "tls";
+                $mail->Host       = 'smtp.gmail.com';
+                $mail->Port       = 587;
+                $mail->Username   = 'aneesh.dgweb@gmail.com';
+                $mail->Password   = 'dexterlab@2012';
+                $mail->SetFrom(INFO_EMAIL, '<Support Desk>');
+                $mail->AddReplyTo(INFO_EMAIL, '<Support Desk>');
+                $mail->Subject    = SITE_NAME.' - Your Club ID Card is here';
+                $mail->Body      =  $message;
+                $mail->AltBody    = '---';
+                $mail->AddAddress($_POST['email'],'');
+                $mail->addAttachment(CARD_UP_PATH . '/' . $_POST['image'], 'ID_Card.jpg');
 
-                if ($this->email->send()) {
-                    $this->data = array('code' => 200, 'message' => 'success', 'data' => array());
+                if(!$mail->send()) {
+                    $this->data = array('code' => 400, 'message' => 'mail relay error', 'data' => array('info' => $mail->ErrorInfo));
                 } else {
-                    $this->data = array('code' => 400, 'message' => 'mail relay error', 'data' => array());
+                    $this->data = array('code' => 200, 'message' => 'success', 'data' => array());
                 }
 
             }
@@ -406,24 +415,33 @@ class Administrator extends CI_Controller
                   $this->load->model(ADMIN_VIEWS . '/model_clubs', 'modelClubAlias');
                   $record = $this->modelClubAlias->fetchById($this->mencrypt->decode($_POST['user']));
 
-                  $this->load->library('email');
-                  $this->config->load('email',true);
-                  $this->email->from(INFO_EMAIL);
-                  $this->email->to($record->email);
-                  $this->email->subject(SITE_NAME.' - Your password is here');
-
                   $full_name = $record->name;
                   $password = $record->r_password;
 
                   include_once(MISC_PATH."/emails.php");
                   $message = $new_password_reset;
 
-                  $this->email->message($message);
+                  $this->load->library('My_PHPMailer');
+                  $mail = new PHPMailer();
+                  $mail->IsSMTP();
+                  $mail->isHTML(true);
+                  $mail->SMTPAuth   = true;
+                  $mail->SMTPSecure = "tls";
+                  $mail->Host       = 'smtp.gmail.com';
+                  $mail->Port       = 587;
+                  $mail->Username   = 'aneesh.dgweb@gmail.com';
+                  $mail->Password   = 'dexterlab@2012';
+                  $mail->SetFrom(INFO_EMAIL, '<Support Desk>');
+                  $mail->AddReplyTo(INFO_EMAIL, '<Support Desk>');
+                  $mail->Subject    = SITE_NAME.' - Your password is here';
+                  $mail->Body      =  $message;
+                  $mail->AltBody    = '---';
+                  $mail->AddAddress($record->email,$record->name);
 
-                  if ($this->email->send()) {
-                      $this->data = array('code' => 200, 'message' => 'success', 'data' => array());
+                  if(!$mail->send()) {
+                      $this->data = array('code' => 400, 'message' => 'mail relay error', 'data' => array('info' => $mail->ErrorInfo));
                   } else {
-                      $this->data = array('code' => 400, 'message' => 'mail relay error', 'data' => array());
+                      $this->data = array('code' => 200, 'message' => 'success', 'data' => array());
                   }
 
               }

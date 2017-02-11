@@ -39,32 +39,32 @@ class Image {
         $box->setFontColor(new Color(10, 50, 138));
 
         //First name
-        $box->setBox(350, 160, 400, 120);
+        $box->setBox(350, 170, 400, 120);
         $box->setTextAlign('left', 'top');
         $box->draw($post['first_name']);
 
         //Last name
-        $box->setBox(350, 202, 400, 120);
+        $box->setBox(350, 217, 400, 120);
         $box->setTextAlign('left', 'top');
         $box->draw($post['last_name']);
 
         //Fathers name
-        $box->setBox(350, 244, 400, 120);
+        $box->setBox(350, 260, 400, 120);
         $box->setTextAlign('left', 'top');
         $box->draw($post['father_name']);
 
         //Date of birth
-        $box->setBox(350, 296, 400, 120);
+        $box->setBox(350, 311, 400, 120);
         $box->setTextAlign('left', 'top');
         $box->draw($post['dob']);
 
         //Type
-        $box->setBox(350, 348, 200, 120);
+        $box->setBox(350, 363, 200, 120);
         $box->setTextAlign('left', 'top');
         $box->draw(ucfirst($post['type']));
 
         //Cluub
-        $box->setBox(350, 400, 600, 120);
+        $box->setBox(350, 415, 600, 120);
         $box->setTextAlign('left', 'top');
         $box->draw($post['club_name']);
 
