@@ -39,9 +39,12 @@ Compose New Message
 <div class="form-group">
 <div class="btn btn-default btn-file">
 <i class="fa fa-paperclip"></i> Attachment
-<input type="file" name="userfile" id="userfile">
+<input type="file" name="userfile[]" multiple>
 </div>
 <p class="help-block">Max. 15MB . pdf, doc, docx, png, jpg supported</p>
+<?php if(isset($FileError) && $FileError == 'Y'):?>
+<div class="error"><?php echo $FileMSG;?></div>
+<?php endif;?>
 </div>
 <input type="submit" value="Send Message" name="send_email"/>
 </form>

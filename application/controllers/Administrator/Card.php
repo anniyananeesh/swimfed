@@ -222,6 +222,14 @@ class Card extends MY_Controller {
 
     }
 
+    public function backface() {
+
+        include_once(APPPATH . "/libraries/Image.php");
+
+        $image = new Image(true);
+        $image->generateBackFace();
+    }
+
     public function batch() {
 
           $this->data['content'] = $this->viewFolder . '/batch';

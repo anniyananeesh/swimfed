@@ -54,13 +54,16 @@
               </a>
             </li>
 
-            <?php if($value->attachment_url != NULL):?>
-            <li>
-              <a class="action-download-attachment" target="_blank" href="<?php echo $fileShowPath?>/<?php echo $value->attachment_url?>" title="Download Attachment" data-id="<?php echo $this->mencrypt->encode($value->id);?>">
-                <i class="fa fa-download mail-icon"></i>
-                Download Attachment
-              </a>
-            </li>
+            <?php $attachments = unserialize($value->attachment_url); $i = 1;?>
+            <?php if(!empty($attachments)):?>
+              <?php foreach ($attachments as $key => $value):?>
+                <li>
+                  <a class="action-download-attachment" target="_blank" href="<?php echo $fileShowPath?>/<?php echo $value?>" title="Download Attachment" data-id="<?php echo $this->mencrypt->encode($value->id);?>">
+                    <i class="fa fa-download mail-icon"></i>
+                    Download Attachment <?php echo $i; ++$i;?>
+                  </a>
+                </li>
+              <?php endforeach;?>
             <?php endif;?>
 
             <li>

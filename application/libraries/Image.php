@@ -104,6 +104,27 @@ class Image {
         return $Image1Name;
     }
 
+    public function generateBackFace() {
+        $im = imagecreatefromjpeg(CARD_BACK_FACE_TEMPLATE);
+        $red = imagecolorallocate($im, 255, 9, 9);
+        $grey = imagecolorallocate($im, 0, 0, 0);
+
+        $year = date('Y');
+
+        $box = new Box($im);
+        $box->setFontFace(ROOT_PATH . "images/templates/TahomaBold.ttf");
+        $box->setFontSize(45);
+        $box->setFontColor(new Color(0, 0, 0));
+
+        //First name
+        $box->setBox(500, 500, 0, 0);
+        $box->setTextAlign('center', 'center');
+        $box->draw($year);
+
+        imagepng( $im);
+        imagedestroy($im);
+    }
+
     private function getMime($file) {
         $image_info = getimagesize($file);
         return $image_info['mime'];

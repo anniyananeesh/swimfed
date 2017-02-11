@@ -87,6 +87,7 @@ define("MEMBER_UP_PATH", ROOT_PATH . "images/" . UPLOADS_FOLDER . "/members");
 define("MEMBER_SHOW_PATH",HTTP . HTTP_HOST . "/images/" . UPLOADS_FOLDER . "/members");
 
 define("CARD_TEMPLATE", ROOT_PATH . "images/templates/id_template.png");
+define("CARD_BACK_FACE_TEMPLATE", ROOT_PATH . "images/templates/id_back_face.jpg");
 define("FONT_TEMPLATE", ROOT_PATH . "images/templates/RobotoCondensed.ttf");
 
 define("ONE_SIGNAL_APP_ID", 'bc3d4592-9fe0-4532-8f62-725f21162f54');

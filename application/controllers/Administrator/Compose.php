@@ -39,6 +39,7 @@ class Compose extends MY_Controller {
         $error = false;
         $fileName = NULL;
         $uploadstatus = '';
+        $attachmentsUrl = array();
 
         if($this->input->post()) {
 
@@ -56,20 +57,36 @@ class Compose extends MY_Controller {
                 $error = true;
             }
 
+            $file_name        = $_FILES["userfile"]["name"];
+            $file_tmp_name    = $_FILES["userfile"]["tmp_name"];
+
+            if(count($file_name) > 2) {
+
+                $this->data['FileError'] = 'Y';
+                $this->data['FileMSG'] = 'You can upload maximum 2 files only';
+                $error = true;
+            }
+
             $this->form_validation->set_error_delimiters('', '');
 
             if($this->form_validation->run() == TRUE && !$error) {
 
-                  $file_name        = $_FILES["userfile"]["name"];
-                  $file_tmp_name    = $_FILES["userfile"]["tmp_name"];
+                  for ($i = 0; $i < count($file_name); $i++) {
 
-                  if (!empty($file_name)) {
+                      if ($_FILES['userfile']['tmp_name'][$i] != "") {
 
-                      $upload_array  = $this->upload_file('userfile', $file_name, "", null);
-                      $fileName        = $upload_array["FileName"];
-                      $this->data["MSG"]   = $upload_array["msg"];
-                      $this->data["Error"] = $upload_array["err"];
-                      $uploadstatus  = $upload_array["ups"];
+                          $Image1Name = substr(md5(uniqid(rand())), 0, 15);
+                          $Image1Name = "IMG-" . $Image1Name . strrchr($file_name[$i], ".");
+
+                          $config                = array();
+                          $config['upload_path'] = ATTACHMENTS_UP_PATH;
+
+                          if (move_uploaded_file($_FILES['userfile']['tmp_name'][$i], ATTACHMENTS_UP_PATH . '/' . $Image1Name)) {
+                              array_push($attachmentsUrl, $Image1Name);
+                          }
+
+                      }
+
                   }
 
                   $toAddress = array();
@@ -105,7 +122,7 @@ class Compose extends MY_Controller {
                                         'to_fk' => $value,
                                         'message' => $this->input->post('message'),
                                         'label' => 'Inbox',
-                                        'attachment_url' => ($uploadstatus != "Error" && !empty($file_name)) ? mysql_real_escape_string($fileName) : NULL,
+                                        'attachment_url' => serialize($attachmentsUrl),
                                         'created_on' => date('Y-m-d h:i:s a')
                                     )
                                 );

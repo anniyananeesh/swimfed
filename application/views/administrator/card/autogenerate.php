@@ -35,6 +35,17 @@
 <button class="red_button" type="button" id="print-image-btn" data-card="<?php echo $imageShowPath?>/<?php echo $card_image?>">Print</button>
 </div>
 <?php endif;?>
+<div class="idcard">
+<?php if($card_image!=NULL):?>
+<img src="<?php echo $ctrlUrl?>/backface" style="margin-top:15px;"/>
+<?php endif;?>
+</div>
+<?php if($card_image !=NULL):?>
+<div class="col-sm-12" style="text-align:center">
+<a download="IDCardBack.png" href="<?php echo $ctrlUrl?>/backface" class="red_button" type="button">Download</a>
+<button class="red_button" type="button" id="print-image-btn" data-card="<?php echo $ctrlUrl?>/backface">Print</button>
+</div>
+<?php endif;?>
 </div>
 <div class="clearfix"></div>
 <div class="form-group mb-n">
